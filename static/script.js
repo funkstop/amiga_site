@@ -21,7 +21,7 @@ function cascadePosition(windowElement) {
 
 // Function to open a window when an icon is clicked
 document.querySelectorAll('.icon').forEach(icon => {
-    icon.addEventListener('click', function() {
+    icon.addEventListener('dblclick', function() {
         // Hide all windows first
        /* document.querySelectorAll('.window').forEach(window => {
             window.style.display = 'none';
