@@ -1,0 +1,11 @@
+/venv
+/static/api
+/static/workbench.*
+/static/workbench*
+/static/modules
+/static/images
+/static/originalIcons
+/instance
+/templates/index_old.html
+/templates/test.html
+

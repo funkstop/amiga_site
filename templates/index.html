@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Amiga Playground</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+</head>
+<body>
+    <header>
+        <h1>Bob's</h1>
+        <img src="{{ url_for('static', filename='/icons/Amiga_Logo_1985.svg') }}" alt="Amiga Logo" class="header-logo">
+        <h1>Playground</h1>
+    </header>
+    <main>
+        <!-- About Me icon and window -->
+        <img src="{{ url_for('static', filename='icons/workbench.png') }}" alt="About Me" class="icon" data-window="about-me">
+        <div class="window" id="about-me" style="width:60%;height: 80%;">
+            <div class="window-bar">
+                <div class="section close-icon">
+                    <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                </div>
+                <div class="section title-text">About Me</div>
+                <div class="section title-bar-bg-pattern">
+                    <!-- This will use the background pattern -->
+                </div>
+                <div class="section send-back-icon">
+                    <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                </div>
+                <div class="section bring-forward-icon">
+                    <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                </div>
+            </div>            
+            <div class="window-content">
+                <p>This is my playground. For me to throw all the different things I do out into the world. </p><br/>
+
+                <h3>Who am I?</h3>
+                <p>I am a creative, a technologist, a musician, a writer, a photographer, a developer, a maker, a tinkerer, a dreamer, a doer, a husband, a father, a son, a brother, a friend, a mentor, a student, a teacher, a leader, a follower, a believer, a skeptic, a lover, a fighter, a traveler, a homebody, a Canadian, a Ugandan, a Gujarati, a Muslim, a human being. 
+                </p><br/>
+                Co-Pilot auto generated that. But it is shockingly pretty accurate.
+                <br/><br/>
+                <highlight>I am first and foremost, a builder.</highlight><br/>
+                <br/>
+                <p>I build software, products, platforms (BIG ones) in Mobile, Enterprise, AI and Machine Learning, AR/VR. I build teams (of all shapes and sizes). I build communities (community over tribe always). I build the future (no joke - go check it out)<br/>
+                <br/>I built my first startup, a web design company, in 1996 . (1980 if you count the magic show my brother and I started)<br/></p>
+                <br/>I went to university for Computer Engineering so that I could continue build innovative products to shape our future at scale. 
+                <br/><br/>0-to-1, innovation</br>
+                <ul>
+                    <li>I built the UK's first Location based Club guide service - in 2001.<br/>
+                    <li>the first biometric based mobile wallet with PayPal and Samsung</li>
+                </ul>
+                <br/>Scale -- REALLY big Scale</br>
+                <ul>
+                    <li>Google Play Services - shipping to <highlight>2.5 Billion</highlight> devices every 6 weeks (insanity scale)</li> 
+                    <li>Yahoo's Mobile Platform - the 3rd largest mobile platform in the world.</li>
+                </ul>
+                
+                <br/>Global, distributed, remote</br> 
+                <ul>
+                   <li> I launched postpaid and roaming services in Afghanistan only months into the reconstruction phase in 2003. </li>
+                   <li> My teams have spanned the world - across the US, UK, France, Mexico, Brazil, India, Singapore, China - I know I have a place to stay almost anywhere! </li>                     
+                </ul>
+                <br/><br/>            
+                <highlight>But my secret life is one immersed in art</highlight>. <br/>
+                Art is my life and always has been. Not pop art. Not in your face, checkmark, social proof seeking art.<br/><br/> 
+                <highlight>The intangible art all around us. The art that we escape into when seeking solace and comfort. 
+                The place we transport to when in 'flow' and deep in a trance in the activity at hand.</highlight></br></br>
+                In recent years, I have been shedding those layers of secrecy. I will continue to build. I will continue to make. 
+                I will proudly boast that my products HAVE BEEN AND ARE Art. A fully immersed life of Art has always been my ambition.<br/><br/>      
+                
+                <h3>Why Amiga?</h3> 
+                <p> Well, the Amiga wasn't my first experience with a computer 
+                    (that would be a massive Fortran machine at my mom's job in the late 70s, and then after that, we had a TRS-80 at home), 
+                    but it was the first computer where I would spend endless hours playing and learning on.
+                    It made me the 'cool kid' where, before getting to high school and distracted by so many other things,
+                    my friends and I would spend endless hours, months, and even years creating music, playing games, and learning how to program.
+                    <br/><br/>
+                    In recent years as I've been jumping back in deep into my creative world, I have had moments of sheer joy which has reminded me of those Amiga days.
+                </p>
+            </div>
+        </div>
+        </main>
+        <main>
+
+        <!-- Experience icon and window -->
+        <img src="{{ url_for('static', filename='icons/DefDrawer.png') }}" alt="Experience" class="icon" data-window="experience">
+        <div class="window" id="experience">
+            <div class="window-bar">
+                <div class="section close-icon">
+                    <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                </div>
+                <div class="section title-text">Projects and Stuff</div>
+                <div class="section title-bar-bg-pattern">
+                    <!-- This will use the background pattern -->
+                </div>
+                <div class="section send-back-icon">
+                    <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                </div>
+                <div class="section bring-forward-icon">
+                    <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                </div>
+            </div>            
+            <div class="window-content">
+                <ul>
+                    <li>Coming soon: Current Projects</li>
+                    <li>Coming soon: my current AI work</li>
+                    <li>Coming soon: my Art</li>
+                    <li>Coming soon: books</li>
+                    <!-- ... Other experiences ... -->
+                </ul>           
+        </div>
+        </main>
+        <main>
+
+            <!-- Recommendations & Fun icon and window -->
+            <img src="{{ url_for('static', filename='icons/MainPrefs.png') }}" alt="Recommendations" class="icon" data-window="recommendations">
+            <div class="window" id="recommendations">
+                <div class="window-bar">
+                    <div class="section close-icon">
+                        <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                    </div>
+                    <div class="section title-text">Questions about me</div>
+                    <div class="section title-bar-bg-pattern">
+                        <!-- This will use the background pattern -->
+                    </div>
+                    <div class="section send-back-icon">
+                        <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                    </div>
+                    <div class="section bring-forward-icon">
+                        <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                    </div>
+                </div>            
+                <div class="window-content">
+                    <p>So REALLY want to know more about me, eh?<br/>
+                    Well you can check out my <a href="https://www.linkedin.com/in/rahimadatia/">LinkedIn</a> - but be warned, I really don't use it much anymore.<br/>
+                    Read why here: <a href="https://thefunkstop.com/why-i-am-leaving-linkedin/" target="_blank">Why I am Leaving LinkedIn</a></p>  
+                    <br/>
+                    You'll find much more about me on these pages. Or by just asking me. I'm pretty open...<br/>
+                    </p>
+                    </div>
+            </div>
+        </main>
+        <main>
+
+        <!-- What I Do & How I Do It icon and window -->
+        <img src="{{ url_for('static', filename='icons/DefPicture.png') }}" alt="What I Do" class="icon" data-window="what-i-do">
+        <div class="window" id="what-i-do">
+            <div class="window-bar">
+                <div class="section close-icon">
+                    <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                </div>
+                <div class="section title-text">Pics and stuff</div>
+                <div class="section title-bar-bg-pattern">
+                    <!-- This will use the background pattern -->
+                </div>
+                <div class="section send-back-icon">
+                    <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                </div>
+                <div class="section bring-forward-icon">
+                    <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                </div>
+            </div>            
+            <div class="window-content">
+                <p>yes - I still have a <a href="https://www.flickr.com/photos/funkstop/albums" target="_blank">Flickr</a> account</p>
+        </div>
+        </main>
+        <main>
+        <!-- Links icon and window -->
+        <img src="{{ url_for('static', filename='icons/HTM.png') }}" alt="Links" class="icon" data-window="links-icon">
+        <div class="window" id="links-icon">
+            <div class="window-bar">
+                <div class="section close-icon">
+                    <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                </div>
+                <div class="section title-text">Links</div>
+                <div class="section title-bar-bg-pattern">
+                    <!-- This will use the background pattern -->
+                </div>
+                <div class="section send-back-icon">
+                    <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                </div>
+                <div class="section bring-forward-icon">
+                    <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                </div>
+            </div>            
+            <div class="window-content">
+                <p>I write in lots of places for lots of different purposes and reasons. <br/>
+                    I am not sure why, but some outlets feel different for different topics.</br>
+                    Check them out. Over the years, I have had many crashes and lost many posts and comments - I kind of like the unintentional ephermerality of that. <br/>
+                </p><br/>
+                <ul>
+                    <li><a href="https://thefunkstop.com" target="_blank">The Funkstop - my catchall Blog</a></li>
+                    <li><a href="https://thefunkstop.substack.com"  target="_blank">My Substack</a></li>
+                    <li><a href="https://www.instagram.com/rahimismailhasham/"  target="_blank">Instagram</a></li>
+                    <li><a href="https://medium.com/@funkstop" target="_blank">Medium</a> - a relic sitting out there but with a fair number of followers</li>
+                    <!-- ... Other links ... -->
+                </ul>
+            </div>
+        </div>
+        </main>
+        <main>
+        <!-- Example: When this icon is clicked, the .guestbook window will be shown -->
+        <img src="{{ url_for('static', filename='icons/icons_system.png') }}" alt="Icon" class="icon" data-window="guestbook">
+        <div class="window" id="guestbook">
+            <div class="window-bar">
+                <div class="section close-icon">
+                    <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                </div>
+                <div class="section title-text">Bouncing Ball</div>
+                <div class="section title-bar-bg-pattern">
+                    <!-- This will use the background pattern -->
+                </div>
+                <div class="section send-back-icon">
+                    <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                </div>
+                <div class="section bring-forward-icon">
+                    <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                </div>
+            </div>            
+            <div class="window-content">
+                <p>Come back here to watch the Boing Ball</p>
+            </div>
+        </div>
+    </main>
+    
+    <main>
+
+        <!-- Contact icon and window -->
+        <img src="{{ url_for('static', filename='icons/shell.png') }}" alt="Contact" class="icon" data-window="contact">
+        <div class="window" id="contact">
+            <div class="window-bar">
+                <div class="section close-icon">
+                    <img src="{{ url_for('static', filename='icons/button_close.png') }}" alt="Close Window">
+                </div>
+                <div class="section title-text">Contact</div>
+                <div class="section title-bar-bg-pattern">
+                    <!-- This will use the background pattern -->
+                </div>
+                <div class="section send-back-icon">
+                    <img src="{{ url_for('static', filename='icons/button_down.png') }}" alt="Send to Background">
+                </div>
+                <div class="section bring-forward-icon">
+                    <img src="{{ url_for('static', filename='icons/button_up.png') }}" alt="Bring to Foreground">
+                </div>
+            </div>            
+            <div class="window-content">
+                <p>Email: <a href="mailto:.com">asdfasdf</a></p>
+                <p>LinkedIn: <a href="https://www.linkedin.com/in/rahimadatia/">LinkedIn</a></p>
+            </div>
+            
+        </div>
+
+    </main>
+    <footer>
+        <p>Made with ♥ and nostalgia by <a href="http://www.linkedin.com/in/rahimadatia">Rahim</a></p>
+    </footer>
+
+</body>
+</html>

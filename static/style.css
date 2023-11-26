@@ -1,0 +1,260 @@
+@font-face {
+    font-family: 'Topaz New';
+    src: url('fonts/topaz_new/Topaznew.ttf') format('truetype');
+}
+
+/* General styling */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+    font-family: 'Topaz New', sans-serif;
+    cursor: url('icons/cursor.png'), auto;
+
+
+}
+
+p {
+    line-height: 1.2;
+  }
+
+
+ul {
+    list-style-type: disc;  /* or 'circle' or 'square' depending on preference */
+    padding-left: 20px;     /* Adjust as needed for proper indentation */
+}
+
+li {
+    margin-bottom: 5px;     /* Optional: adds a bit of space between list items */
+}
+
+body {
+    background-color: #00519E;; /* #D0D0C0; /* Classic light gray background */
+    color: #f0f0f0; /* Black text */
+    font-size: 16px;
+    font-weight: normal;
+    /* background-image: url('icons/workbench-pattern.png'); /* A pattern that resembles the Amiga Workbench, replace with actual path */
+    background-repeat: repeat; /* Make the pattern fill the screen */
+}
+
+a {
+    color: rgb(255, 136, 0); /* White links */
+    text-decoration: none;
+}
+header {
+    background-color: #0050A0; /* Dark gray for header */
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 3px solid #0050A0; /* Dark border for some depth */
+}
+
+.header-logo {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin: 4px 4px 4px 25px;
+    gap: 20px;
+    padding: 20px;
+}
+
+.icon {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.2); /* Adds a slight shadow below the icon for "raised" effect */
+}
+
+.window {
+    display: none;
+    background-color: #0050A0; /* Light gray background */
+    /* background-image: url('icons/workbench-pattern.png'); /* A pattern that resembles the Amiga Workbench, replace with actual path */
+    background-repeat: repeat; /* Make the pattern fill the screen */
+    padding: 0px;
+    width: 60%;  /* Or whatever width you prefer */
+    max-width: 500px;  /* Or whatever width you prefer */
+   // height: 400px; /* Or whatever height you prefer */
+    //overflow: auto; /* Will display scrollbars when content overflows */
+    resize:both; /* Allows the user to resize the window */
+    border: 5px solid #f9f9f9; /* Thick border to resemble Amiga windows */
+    position: absolute;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.3); /* Shadow for a 3D effect */
+    z-index: 1000; /* Stay on top of other content */
+    top: 100px; /* starting position */
+    left: 100px; /* starting position */
+    overflow: hidden;
+    
+    flex-direction: column;
+}
+
+.aboutwindow {
+    display: none;
+    background-color: #0050A0; /* Light gray background */
+    /* background-image: url('icons/workbench-pattern.png'); /* A pattern that resembles the Amiga Workbench, replace with actual path */
+    background-repeat: repeat; /* Make the pattern fill the screen */
+    padding: 0px;
+    width: 80%;  /* Or whatever width you prefer */
+    height: 80%; /* Or whatever height you prefer */
+    overflow: auto; /* Will display scrollbars when content overflows */
+    resize:both; /* Allows the user to resize the window */
+    border: 5px solid #f9f9f9; /* Thick border to resemble Amiga windows */
+    position: absolute;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.3); /* Shadow for a 3D effect */
+    z-index: 1000; /* Stay on top of other content */
+    top: 100px; /* starting position */
+    left: 100px; /* starting position */
+    
+    flex-direction: column;
+}
+
+h2 {
+    background-color: #707070; /* Dark gray for window header */
+    color: #FFF; /* White text on window header */
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    background-color: rgb(255, 136, 0); /* orange for highlights*/
+    color: #FFF; /* White text on window header */
+}
+
+highlight {
+    background-color: rgb(255, 136, 0); /* orange for highlights*/
+    color: #FFF; /* White text on window header */
+}
+
+footer {
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 3px solid #505050;
+}
+
+.close-window {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #E00000; /* Classic red for the close button */
+    color: #FFF;
+    border: 2px outset #D0D0C0; /* This creates a 3D button effect */
+    cursor: pointer;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    line-height: 1;
+    text-align: left;
+
+}
+
+.close-window:hover {
+    background-color: #B00000; /* Darker red on hover */
+}
+
+
+.window-bar {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    font-weight: bold;
+    color: white;
+    position:sticky;
+    top:0;
+    z-index: 2; /* Higher z-index to keep it above content */
+}
+
+.section {
+    text-align: center;
+    position: relative; /* Needed for certain layout tricks */
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.title-text {
+    background-color: #f9f9f9;
+    color: #000099;
+    padding: 0px 5px 0px 5px;
+}
+
+.title-bar-bg-pattern {
+    flex-grow: 1;
+    background-image: url('icons/titlebar_background.png');
+    background-repeat: repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1; /* Push the background behind the text */
+}
+
+.close-icon, .send-back-icon, .bring-forward-icon {
+    cursor: pointer;
+    margin: 0 0px;
+}
+
+.send-back-icon {
+    margin-left: auto; /* This will push it to the right */
+
+}
+
+.close-icon img, .send-back-icon img, .bring-forward-icon img {
+    max-height: 20px; /* Adjust as needed */
+    max-width: 20px; /* Adjust as needed */
+    display: block;
+}
+
+.close-icon, .send-back-icon, .bring-forward-icon {
+    cursor: pointer;
+}
+
+.close-icon img, .send-back-icon img, .bring-forward-icon img {
+    max-height: 20px; /* Adjust as needed */
+    max-width: 20px; /* Adjust as needed */
+}
+
+
+
+.window-title {
+    font-family: 'Topaz New', sans-serif; /* Placeholder for your Amiga-like font */
+    font-size: 16px;
+    color: #000099;
+}
+
+
+.window-content {
+    padding: 10px;
+    color: #f9f9f9;
+    overflow: auto; /* This makes just the content area scrollable */
+    height: 100%; /* This makes the content area fill the window */
+   // flex-grow: 1; /* Allows it to take up the remaining space */
+}
+
+.scrollable-content {
+    overflow: auto; /* This makes just the content area scrollable */
+    flex-grow: 1; /* Allows it to take up the remaining space */
+}
+
+/* Customize the width and color of the scrollbar */
+.window::-webkit-scrollbar {
+    width: 10px;
+}
+
+.window::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.window::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.window::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
