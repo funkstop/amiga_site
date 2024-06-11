@@ -89,7 +89,13 @@ main {
     left: 100px; /* starting position */
     overflow: hidden;
     
-    flex-direction: column;
+    flex-direction: column;   
+}
+
+@media (max-width: 600px) {
+    .window {
+        display:none;
+    }
 }
 
 .aboutwindow {
@@ -273,18 +279,25 @@ footer {
     cursor: pointer; /* Optional: Change the cursor to a pointer when hovering over icons */
 }
 
-#contact {
-    display: block; /* Ensure the shell is visible when the page loads */
-}
 
 .amiga-shell {
-    width: 500px;
     height: 350px;
     border: 2px solid #f0f0f0;
     background-color: #00519E;;
     display: flex;
     flex-direction: column;
+    white-space: normal; /* Ensures text wraps */
+    word-wrap: break-word; /* Breaks words onto the next line to prevent overflow */
+    overflow-wrap: break-word; /* Allows unbreakable words to be broken */
 }
+
+@media (max-width: 600px) {
+    .amiga-shell {
+        width: 95%; /* Adjusts width to 90% of the screen on smaller devices */
+        margin: 0 auto; /* Centers the shell on smaller devices */
+    }
+}
+
 
 #contact {
     position: absolute; /* Or use 'fixed' for a position relative to the viewport */
@@ -313,6 +326,12 @@ footer {
     padding: 10px;
     overflow-y: auto;
 }
+@media (max-width: 600px) {
+    .shell-content {
+        width: 95%; /* Adjusts width to 90% of the screen on smaller devices */
+        margin: 0 auto; /* Centers the shell on smaller devices */
+    }
+}
 
 #shell-input {
     padding: 10px;
@@ -322,4 +341,7 @@ footer {
     color: #f0f0f0;
     font-family: 'Topaz', 'Courier New', Courier, monospace;
     font-size: 14px;
+    white-space: normal; /* Ensures text wraps */
+    word-wrap: break-word; /* Breaks words onto the next line to prevent overflow */
+    overflow-wrap: break-word; /* Allows unbreakable words to be broken */
 }

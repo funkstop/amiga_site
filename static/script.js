@@ -80,9 +80,13 @@ let isDragging = false;
 let offsetX, offsetY;
 
 // Function to start dragging the window
-function startDragging(e) {
+/*function startDragging(e) {
     console.log('start dragging');
     isDragging = true;
+
+    e.currentTarget.parentElement.addEventListener('touchmove', doDrag);
+    e.currentTarget.parentElement.addEventListener('touchend', stopDragging);
+    
 
     // Store the current mouse position subtracted by the window's top and left position
     offsetX = e.clientX - e.currentTarget.getBoundingClientRect().left;
@@ -91,14 +95,56 @@ function startDragging(e) {
     // Add mouse move and mouse up event listeners
     e.currentTarget.parentElement.addEventListener('mousemove', doDrag);
     e.currentTarget.parentElement.addEventListener('mouseup', stopDragging);
+}*/
+function startDragging(e) {
+    console.log('start dragging');
+    isDragging = true;
+
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+    if (e.type === 'touchstart') {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+    }
+
+    offsetX = clientX - e.currentTarget.getBoundingClientRect().left;
+    offsetY = clientY - e.currentTarget.getBoundingClientRect().top;
+
+    e.currentTarget.parentElement.addEventListener('mousemove', doDrag);
+    e.currentTarget.parentElement.addEventListener('mouseup', stopDragging);
+    e.currentTarget.parentElement.addEventListener('touchmove', doDrag);
+    e.currentTarget.parentElement.addEventListener('touchend', stopDragging);
 }
 
+
 // Function to drag the window
-function doDrag(e) {
+/*function doDrag(e) {
+    
     if (isDragging) {
         // Calculate the new position for the window
         const x = e.clientX - offsetX;
         const y = e.clientY - offsetY;
+        
+
+        console.log(`x: ${x}, y: ${y}`);
+        console.log(e);
+        // Set the new position for the window
+        e.currentTarget.style.left = `${x}px`;
+        e.currentTarget.style.top = `${y}px`;
+    }
+}*/
+function doDrag(e) {
+    if (isDragging) {
+        let clientX = e.clientX;
+        let clientY = e.clientY;
+        if (e.type === 'touchmove') {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        }
+
+        // Calculate the new position for the window
+        const x = clientX - offsetX;
+        const y = clientY - offsetY;
 
         console.log(`x: ${x}, y: ${y}`);
         console.log(e);
@@ -108,6 +154,7 @@ function doDrag(e) {
     }
 }
 
+
 // Function to stop dragging the window
 function stopDragging(e) {
     isDragging = false;
@@ -115,11 +162,15 @@ function stopDragging(e) {
     // Remove the event listeners
     document.removeEventListener('mousemove', doDrag);
     document.removeEventListener('mouseup', stopDragging);
+    document.removeEventListener('touchmove', doDrag);
+    document.removeEventListener('touchend', stopDragging);
+
 }
 
 // Attach the event listener to the title bar (window-bar) of each window
 document.querySelectorAll('.window .window-bar').forEach(titleBar => {
     titleBar.addEventListener('mousedown', startDragging);
+    titleBar.addEventListener('touchstart', startDragging);
 });
 
 // Function to bring a window to the front
@@ -148,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     const tasks = [
-        'Welcome to Amiga Shell</div>',
+        'Welcome to Bob\'s Amiga Shell</div>',
         '--',
         'Go Check out my Chrome Extension: <ul><li><a href="https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?pli=1">Workspace Manager (Tab Manager)</a></li></ul>',
         '--',
@@ -197,7 +248,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (commands[command]) {
                 commands[command]();
             } else {
-                shellContent.innerHTML += `<div>Unknown command: ${command}</div><br>`;
+                shellContent.innerHTML ='';
+                shellContent.innerHTML += `<div>I'm still very limited in what I can do.</div><br>`;
+                shellContent.innerHTML += `<div>I don't understand: ${command}</div><br>`;
+                shellContent.innerHTML += `<div>I will be able to do more soon</div>`;
             }
             shellInput.value = '';
             scrollToBottom();
