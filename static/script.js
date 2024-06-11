@@ -134,3 +134,77 @@ document.querySelectorAll('.window').forEach(window => {
         bringToFront(this);
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const shellContent = document.querySelector('.shell-content');
+    const shellInput = document.getElementById('shell-input');
+
+    // Initialize the initial window (specific window with ID 'contact')
+    const initialWindow = document.getElementById('contact');
+    if (initialWindow) {
+        initialWindow.style.display = 'block';
+        bringToFront(initialWindow);
+    }
+
+    
+    const tasks = [
+        'Welcome to Amiga Shell</div>',
+        '--',
+        'Go Check out my Chrome Extension: <ul><li><a href="https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?pli=1">Workspace Manager (Tab Manager)</a></li></ul>',
+        '--',
+        'My most recent post: <a href="https://thefunkstop.substack.com/p/on-ramadan-and-why-i-refuse-to-fast" target="_blank">On Ramadan and Why I refuse to fast</a>',
+        'Older posts that might have current relevance: <a href="https://thefunkstop.substack.com/p/on-juneteenth" target="_blank">On Junteenth</a>',
+        '--',
+        'Contact me: rahim at internetplus dot com',
+        'LinkedIn: <a href="http://www.linkedin.com/in/rahimadatia" target="_blank">my \'professional\' self</a>',                    
+    ];
+
+    const commands = {
+        'list': () => {
+            shellContent.innerHTML = '';
+            //shellContent.innerHTML += '<div>Listing tasks:</div>';
+            tasks.forEach(task => {
+                shellContent.innerHTML += `<div>${task}</div>`;
+            });
+            shellContent.innerHTML += '<br>';
+            scrollToBottom();
+        },
+        'help': () => {
+            shellContent.innerHTML = '';
+            shellContent.innerHTML += '<div>Available commands:</div>';
+            shellContent.innerHTML += '<div>list - List all tasks</div>';
+            shellContent.innerHTML += '<div>help - Show available commands</div>';
+            shellContent.innerHTML += '<br>';
+            scrollToBottom();
+        },
+        'hello': () => {
+            shellContent.innerHTML = '';
+            shellContent.innerHTML += '<div>Hello to you as well!</div>';
+            scrollToBottom();
+        },
+        'wisdom': () => {
+            shellContent.innerHTML = '';
+            shellContent.innerHTML += '<div>The early bird catches the worm,</div>';
+            shellContent.innerHTML += '<div>But good things happen to those who wait!</div>';
+            scrollToBottom();
+        }
+    };
+
+    shellInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const command = shellInput.value.trim();
+            shellContent.innerHTML += `<div>&gt; ${command}</div>`;
+            if (commands[command]) {
+                commands[command]();
+            } else {
+                shellContent.innerHTML += `<div>Unknown command: ${command}</div><br>`;
+            }
+            shellInput.value = '';
+            scrollToBottom();
+        }
+    });
+
+    function scrollToBottom() {
+        shellContent.scrollTop = shellContent.scrollHeight;
+    }
+});
