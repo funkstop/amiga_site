@@ -201,6 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const tasks = [
         'Welcome to Bob\'s Amiga Shell</div>',
         '--',
+        'Click the different icons like About Me to navigate around</div>',
+        '--',
         'Go Check out my Chrome Extension: <ul><li><a href="https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?pli=1">Workspace Manager (Tab Manager)</a></li></ul>',
         '--',
         'My most recent post: <a href="https://thefunkstop.substack.com/p/on-ramadan-and-why-i-refuse-to-fast" target="_blank">On Ramadan and Why I refuse to fast</a>',
