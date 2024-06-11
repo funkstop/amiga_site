@@ -261,7 +261,9 @@ footer {
 
 .icon-row {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+   /* justify-content: center;*/
     align-items: center;
     gap: 10px; /* Adjust the gap between icons as needed */
     margin-bottom: 20px; /* Add some space between the icons and the content below */
