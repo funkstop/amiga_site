@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     shellInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-            const command = shellInput.value.trim();
+            const command = shellInput.value.trim().toLowerCase();
             shellContent.innerHTML += `<div>&gt; ${command}</div>`;
             if (commands[command]) {
                 commands[command]();
