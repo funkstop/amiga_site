@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '--',
         'Click the different icons like About Me to navigate around</div>',
         '--',
-        'Go Check out my Chrome Extension: <ul><li><a href="https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?pli=1">Workspace Manager (Tab Manager)</a></li></ul>',
+        'Go Check out this Chrome Extension from <a href="http://www.jugya.com" target="_blank">Jugya</a>: <ul><li><a href="https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?pli=1">Workspace Manager (Tab Manager)</a></li></ul>',
         '--',
         'My most recent post: <a href="https://thefunkstop.substack.com/p/on-ramadan-and-why-i-refuse-to-fast" target="_blank">On Ramadan and Why I refuse to fast</a>',
         'Older posts that might have current relevance: <a href="https://thefunkstop.substack.com/p/on-juneteenth" target="_blank">On Junteenth</a>',
