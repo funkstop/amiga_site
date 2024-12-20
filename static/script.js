@@ -264,3 +264,79 @@ document.addEventListener('DOMContentLoaded', function() {
         shellContent.scrollTop = shellContent.scrollHeight;
     }
 });
+
+function makeDraggable(windowElement) {
+    const windowBar = windowElement.querySelector('.window-bar');
+    let isDragging = false;
+    let activeWindow = null;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    function startDrag(e) {
+        console.log('Drag started on:', windowElement);
+
+        isDragging = true;
+        activeWindow = windowElement;
+        offsetX = e.clientX - activeWindow.offsetLeft;
+        offsetY = e.clientY - activeWindow.offsetTop;
+
+        windowBar.style.cursor = 'grabbing';
+
+        // Attach global listeners
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', fireMouseUpOnAll);
+    }
+
+    function drag(e) {
+        if (!isDragging || activeWindow !== windowElement) return;
+
+        const newLeft = e.clientX - offsetX;
+        const newTop = e.clientY - offsetY;
+
+        activeWindow.style.left = `${newLeft}px`;
+        activeWindow.style.top = `${newTop}px`;
+    }
+
+    function stopDrag() {
+        if (!isDragging) return;
+
+        console.log('Drag stopped on:', activeWindow);
+
+        isDragging = false;
+        activeWindow = null;
+
+        windowBar.style.cursor = 'pointer';
+
+        // Remove global listeners
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('mouseup', fireMouseUpOnAll);
+    }
+
+    function fireMouseUpOnAll() {
+        console.log('Firing mouseup on all windows');
+
+        // Fire mouseup on all draggable windows to stop any lingering drag states
+        document.querySelectorAll('.window').forEach((windowEl) => {
+            const event = new MouseEvent('mouseup', {
+                bubbles: true,
+                cancelable: true,
+            });
+            windowEl.dispatchEvent(event); // Dispatch a mouseup event
+        });
+
+        // Stop dragging the current window
+        stopDrag();
+    }
+
+    windowBar.addEventListener('mousedown', startDrag);
+
+    // Prevent text selection during dragging
+    windowBar.addEventListener('dragstart', (e) => e.preventDefault());
+}
+
+// Apply draggable functionality to all windows
+document.querySelectorAll('.window').forEach((windowElement) => {
+    makeDraggable(windowElement);
+});
+
+
