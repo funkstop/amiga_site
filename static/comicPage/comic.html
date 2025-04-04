@@ -7,13 +7,19 @@
   <style>
     body {
       margin: 0;
-      background: #fdf38c;
+      background: #222;
       font-family: 'Bangers', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
-    .comic-layout {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
+    .comic-page {
+      width: 1000px;
+      background: white;
+      border: 10px solid black;
+      padding: 30px;
+      box-shadow: 0 0 0 10px #ffec40, 0 0 0 20px black;
       display: grid;
       grid-template-areas:
         'title title'
@@ -26,10 +32,9 @@
     }
     .panel {
       border: 5px solid black;
-      box-shadow: 6px 6px 0 black;
+      box-shadow: 4px 4px 0 #000;
       padding: 20px;
       position: relative;
-      z-index: 1;
       color: black;
     }
     .panel1 { grid-area: p1; background: #fefefe; transform: rotate(-1.5deg); }
@@ -100,7 +105,7 @@
   </style>
 </head>
 <body>
-  <div class="comic-layout">
+  <div class="comic-page">
     <div class="title-panel">50 Days of Making – Robo Reports In!</div>
 
     <div class="panel panel1">
