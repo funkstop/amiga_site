@@ -16,12 +16,13 @@
       padding: 20px;
       display: grid;
       grid-template-areas:
-        'title title title'
-        'left right tall'
-        'caption caption caption'
-        'wide wide stacked';
-      grid-template-columns: 1fr 1fr 1fr;
+        'title title'
+        'p1 p2'
+        'p3 p2'
+        'p4 p4';
+      grid-template-columns: 2fr 1fr;
       grid-gap: 20px;
+      position: relative;
     }
     .panel {
       border: 5px solid black;
@@ -29,78 +30,67 @@
       box-shadow: 6px 6px 0 black;
       padding: 20px;
       position: relative;
-    }
-    .panel img.robo {
-      width: 60px;
-      position: absolute;
-      top: -30px;
-      left: -30px;
+      z-index: 1;
     }
     .speech {
       font-size: 1.5rem;
       line-height: 1.4;
     }
-    .title-panel {
-      grid-area: title;
-      display: flex;
-      align-items: center;
-    }
-    .title-panel img {
-      width: 100px;
-      margin-right: 20px;
-    }
-    .left-panel { grid-area: left; }
-    .right-panel { grid-area: right; }
-    .stacked-panel { grid-area: stacked; }
-    .tall-panel {
-      grid-area: tall;
-      height: 100%;
-    }
-    .wide-panel { grid-area: wide; }
-    .caption-panel {
-      grid-area: caption;
+    .caption {
       background: black;
       color: yellow;
+      padding: 10px;
       font-size: 2rem;
-      padding: 15px;
+      box-shadow: 4px 4px 0 black;
+      margin-bottom: 10px;
+    }
+    .panel img.robo {
+      width: 70px;
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+    }
+    .title-panel {
+      grid-area: title;
+      background: #ffec40;
+      font-size: 2.5rem;
       text-align: center;
-      font-weight: bold;
+      padding: 30px;
+      border: 5px solid black;
       box-shadow: 6px 6px 0 black;
     }
+    .panel1 { grid-area: p1; transform: rotate(-1.5deg); }
+    .panel2 { grid-area: p2; transform: rotate(1.5deg); z-index: 2; }
+    .panel3 { grid-area: p3; transform: rotate(-1deg); }
+    .panel4 { grid-area: p4; transform: rotate(0.5deg); }
   </style>
 </head>
 <body>
   <div class="comic-layout">
-    <div class="panel title-panel">
-      <img src="robo.png" alt="Robo narrator">
-      <div class="speech">Welcome to the 50 Days of Making! I'm Robo, your curious guide through this creative world.</div>
+    <div class="title-panel">50 Days of Making – Robo Reports In!</div>
+
+    <div class="panel panel1">
+      <div class="caption">DAY 1</div>
+      <div class="speech">Let's get started! 50 days, 50 chances to experiment and build a rhythm.</div>
+      <img src="robo1.png" alt="Robo pose 1" class="robo">
     </div>
 
-    <div class="panel left-panel">
-      <img src="robo.png" alt="Robo" class="robo">
-      <div class="speech">Why 50 days? Because repetition builds rhythm — and breakthroughs!</div>
+    <div class="panel panel2">
+      <div class="caption">WHAT'S BEING MADE?</div>
+      <div class="speech">Digital art, sketches, messy notes — it’s all part of the story. And it counts.</div>
+      <img src="robo2.png" alt="Robo pose 2" class="robo">
     </div>
 
-    <div class="panel right-panel">
-      <img src="robo.png" alt="Robo" class="robo">
-      <div class="speech">Every medium counts: from digital experiments to messy sketchbook pages.</div>
+    <div class="panel panel3">
+      <div class="caption">SURPRISE DISCOVERIES</div>
+      <div class="speech">Some of the coolest stuff? It came from mistakes and weird tangents.</div>
+      <img src="robo3.png" alt="Robo pose 3" class="robo">
     </div>
 
-    <div class="panel tall-panel">
-      <img src="robo.png" alt="Robo" class="robo">
-      <div class="speech">The journey isn’t polished — it’s honest. That’s the real story here.</div>
-    </div>
-
-    <div class="caption-panel">MEANWHILE, BACK IN THE STUDIO...</div>
-
-    <div class="panel wide-panel">
-      <img src="robo.png" alt="Robo" class="robo">
-      <div class="speech">Follow @rahimexploring on Instagram to see every step — raw, real, and in progress.</div>
-    </div>
-
-    <div class="panel stacked-panel">
-      <img src="robo.png" alt="Robo" class="robo">
-      <div class="speech">Some days are wild. Some are subtle. But every day is one more rep in the making muscle.</div>
+    <div class="panel panel4">
+      <div class="caption">FOLLOW THE JOURNEY</div>
+      <div class="speech">See the full process @rahimexploring on Instagram. Raw. Honest. Daily.</div>
+      <img src="robo4.png" alt="Robo pose 4" class="robo">
     </div>
   </div>
 </body>
