@@ -19,18 +19,18 @@
       background: white url('https://www.transparenttextures.com/patterns/paper-fibers.png');
       border: 10px solid black;
       padding: 30px;
-      box-shadow: 0 0 0 10px #ffec40, 0 0 0 20px black;
+      box-shadow: 0 0 0 10px #fff940, 0 0 0 20px black;
       display: grid;
       grid-template-areas:
         'title title'
-        'p1 p2'
         'p3 p2'
+        'p1 p2'
         'p4 insta';
       grid-template-columns: 2fr 1fr;
       grid-gap: 20px;
       position: relative;
     }
-    .panel {
+    .panel, .insta-panel {
       border: 5px solid black;
       box-shadow: 4px 4px 0 #000;
       padding: 20px;
@@ -39,57 +39,87 @@
       background-image: radial-gradient(#00000022 1px, transparent 0);
       background-size: 5px 5px;
     }
-    .panel1 { grid-area: p1; background-color: #fefefe; transform: rotate(-1.5deg); }
-    .panel2 { grid-area: p2; background-color: #c2f0fc; transform: rotate(1.5deg); z-index: 2; }
-    .panel3 { grid-area: p3; background-color: #fdd9b5; transform: rotate(-1deg); }
-    .panel4 { grid-area: p4; background-color: #d6fcb5; transform: rotate(0.5deg); }
+    .panel1 {
+      grid-area: p1;
+      background-color: #ff00ccc1;
+      transform: skewY(-1.5deg);
+    }
+    .panel2 {
+      grid-area: p2;
+      background-color: #c2f0fc;
+      transform: skewX(-2deg);
+      z-index: 2;
+    }
+    .panel3 {
+      grid-area: p3;
+      background-color: #e603ff;
+      transform: skewY(1.5deg);
+    }
+    .panel4 {
+      grid-area: p4;
+      background-color: #09f410;
+      padding: 30px;
+      transform: skewX(1.5deg);
+    }
+    .panel5 {
+      grid-area: p4;
+      background-color: #f44c09;
+      padding: 30px;
+      transform: skewX(1.5deg);
+    }
+    .panel6 {
+      grid-area: p4;
+      background-color: #f4e809;
+      transform: skewX(1.5deg);
+    }
     .insta-panel {
       grid-area: insta;
       background: #ffffff;
-      padding: 10px;
-      border: 5px solid black;
-      box-shadow: 4px 4px 0 #000;
-      transform: rotate(-1deg);
+      transform: skewY(-1deg);
     }
     .speech {
       background: white;
       border: 3px solid black;
-      border-radius: 25px;
-      padding: 15px;
+      border-radius: 50% / 30%;
+      padding: 20px 30px;
       box-shadow: 3px 3px 0 black;
       position: relative;
-      font-size: 1.5rem;
+      font-size: 1rem;
       line-height: 1.4;
+      max-width: 80%;
+      margin-left: 40px;
     }
     .speech::after {
       content: '';
       position: absolute;
-      bottom: -20px;
-      left: 30px;
+      left: -30px;
+      top: 40%;
       width: 0;
       height: 0;
-      border: 10px solid transparent;
-      border-top-color: white;
-      border-bottom: 0;
-      margin-left: -10px;
+      border: 16px solid transparent;
+      border-right-color: white;
+      transform: translateY(-50%);
+      z-index: 2;
     }
+
     .speech::before {
       content: '';
       position: absolute;
-      bottom: -23px;
-      left: 29px;
+      left: -34px;
+      top: 40%;
       width: 0;
       height: 0;
-      border: 11px solid transparent;
-      border-top-color: black;
-      border-bottom: 0;
-      margin-left: -11px;
+      border: 17px solid transparent;
+      border-right-color: black;
+      transform: translateY(-50%);
+      z-index: 1;
     }
+
     .caption {
       background: black;
       color: yellow;
       padding: 10px;
-      font-size: 2rem;
+      font-size: 1.5rem;
       box-shadow: 4px 4px 0 black;
       margin-bottom: 10px;
       border: 3px solid white;
@@ -99,52 +129,77 @@
       width: 70px;
       position: absolute;
       bottom: -20px;
-      right: -20px;
+      left: -20px;
+      z-index: 10;
     }
     .title-panel {
       grid-area: title;
-      background: #ffec40 url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
-      font-size: 2.5rem;
+      background: #ff0000db url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
+      font-size: 2rem;
       text-align: center;
+      color: white;
       padding: 30px;
       border: 5px solid black;
       box-shadow: 6px 6px 0 black;
       text-transform: uppercase;
+    }
+    .insta-panel blockquote {
+      border: 3px dashed #000;
+      padding: 10px;
+      background: #fffef0;
+      box-shadow: 4px 4px 0 #000;
+      font-size: .8rem;
+    }
+    .insta-label {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      background: black;
+      color: yellow;
+      padding: 5px 10px;
+      display: inline-block;
+      border: 2px solid white;
     }
   </style>
   <script async src="https://www.instagram.com/embed.js"></script>
 </head>
 <body>
   <div class="comic-page">
-    <div class="title-panel">50 Days of Making – Robo Reports In!</div>
+    <div class="title-panel">50 Days of Making!</div>
 
-    <div class="panel panel1">
-      <div class="caption">Day 1</div>
-      <div class="speech">Let's get started! 50 days, 50 chances to experiment and build a rhythm.</div>
-      <img src="robo1.png" alt="Robo pose 1" class="robo">
+    <div class="panel panel3">
+      <div class="panel panel6">
+        <div class="caption">Day 1</div>
+        <div class="speech">I started: 50 days, 50 chances to experiment, explore, and build a rhythm.</div>
+        <img src="robo3.png" alt="Robo pose 3" class="robo">
+      </div>
+      <div class="insta-panel">
+        <div class="insta-label">Captured on Day 31</div>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DHZJV7FyOrU/" data-instgrm-version="14" style="width:100%; max-width:100%; margin: 0 auto;"></blockquote>
+      </div>
+      
     </div>
 
     <div class="panel panel2">
-      <div class="caption">What's Being Made?</div>
-      <div class="speech">Digital art, sketches, messy notes — it’s all part of the story. And it counts.</div>
-      <img src="robo2.png" alt="Robo pose 2" class="robo">
+      <div class="panel panel4">
+        <div class="caption">What am I exploring?</div>
+        <div class="speech">The idea: use audio tracks, to make patterns that move to the music - using Touchdesigner to begin with. But that will change.</div>
+        <img src="robo1.png" alt="Robo pose 1" class="robo">
+      </div>
+      <div class="panel panel1">
+        <div class="caption">Surprise Discoveries</div>
+        <div class="speech">Touch designer is just another piece of software. I got bored of it and started to trail off. Need a better process which keeps the concept, but adds tools!</div>
+        <img src="robo4.png" alt="Robo pose 1" class="robo">
+      </div>
+      <div class="panel panel5">
+        <div class="caption">Follow the Journey</div>
+        <div class="speech"> @rahimexploring on Instagram.</div>
+        <img src="robo1.png" alt="Robo pose 4" class="robo">
+      </div>
     </div>
 
-    <div class="panel panel3">
-      <div class="caption">Surprise Discoveries</div>
-      <div class="speech">Some of the coolest stuff? It came from mistakes and weird tangents.</div>
-      <img src="robo3.png" alt="Robo pose 3" class="robo">
-    </div>
+    
 
-    <div class="panel panel4">
-      <div class="caption">Follow the Journey</div>
-      <div class="speech">See the full process @rahimexploring on Instagram. Raw. Honest. Daily.</div>
-      <img src="robo4.png" alt="Robo pose 4" class="robo">
-    </div>
-
-    <div class="insta-panel">
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DHZJV7FyOrU/" data-instgrm-version="14" style="width:100%; max-width:100%; margin: 0 auto;"></blockquote>
-    </div>
+    
   </div>
 </body>
 </html>
