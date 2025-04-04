@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+body {
+  background: #fdf38c;
+  margin: 0;
+  font-family: 'Bangers', cursive;
+}
+
+.comic-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.comic-panel {
+  background: white;
+  border: 5px solid black;
+  box-shadow: 6px 6px 0px black;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.panel-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px white, -2px -2px white;
+}
+
+.panel-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.speech-bubble {
+  position: relative;
+  background: white;
+  border: 3px solid black;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 black;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: white;
+  z-index: 1;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -23px;
+  left: 19px;
+  width: 0;
+  height: 0;
+  border: 11px solid transparent;
+  border-top-color: black;
+  z-index: 0;
+}
