@@ -26,15 +26,50 @@
     }
     .panel {
       border: 5px solid black;
-      background: white;
       box-shadow: 6px 6px 0 black;
       padding: 20px;
       position: relative;
       z-index: 1;
+      color: black;
     }
+    .panel1 { grid-area: p1; background: #fefefe; transform: rotate(-1.5deg); }
+    .panel2 { grid-area: p2; background: #c2f0fc; transform: rotate(1.5deg); z-index: 2; }
+    .panel3 { grid-area: p3; background: #fdd9b5; transform: rotate(-1deg); }
+    .panel4 { grid-area: p4; background: #d6fcb5; transform: rotate(0.5deg); }
+
     .speech {
+      background: white;
+      border: 3px solid black;
+      border-radius: 25px;
+      padding: 15px;
+      box-shadow: 3px 3px 0 black;
+      position: relative;
       font-size: 1.5rem;
       line-height: 1.4;
+    }
+    .speech::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-top-color: white;
+      border-bottom: 0;
+      margin-left: -10px;
+    }
+    .speech::before {
+      content: '';
+      position: absolute;
+      bottom: -23px;
+      left: 29px;
+      width: 0;
+      height: 0;
+      border: 11px solid transparent;
+      border-top-color: black;
+      border-bottom: 0;
+      margin-left: -11px;
     }
     .caption {
       background: black;
@@ -43,6 +78,8 @@
       font-size: 2rem;
       box-shadow: 4px 4px 0 black;
       margin-bottom: 10px;
+      border: 3px solid white;
+      text-transform: uppercase;
     }
     .panel img.robo {
       width: 70px;
@@ -58,11 +95,8 @@
       padding: 30px;
       border: 5px solid black;
       box-shadow: 6px 6px 0 black;
+      text-transform: uppercase;
     }
-    .panel1 { grid-area: p1; transform: rotate(-1.5deg); }
-    .panel2 { grid-area: p2; transform: rotate(1.5deg); z-index: 2; }
-    .panel3 { grid-area: p3; transform: rotate(-1deg); }
-    .panel4 { grid-area: p4; transform: rotate(0.5deg); }
   </style>
 </head>
 <body>
@@ -70,25 +104,25 @@
     <div class="title-panel">50 Days of Making – Robo Reports In!</div>
 
     <div class="panel panel1">
-      <div class="caption">DAY 1</div>
+      <div class="caption">Day 1</div>
       <div class="speech">Let's get started! 50 days, 50 chances to experiment and build a rhythm.</div>
       <img src="robo1.png" alt="Robo pose 1" class="robo">
     </div>
 
     <div class="panel panel2">
-      <div class="caption">WHAT'S BEING MADE?</div>
+      <div class="caption">What's Being Made?</div>
       <div class="speech">Digital art, sketches, messy notes — it’s all part of the story. And it counts.</div>
       <img src="robo2.png" alt="Robo pose 2" class="robo">
     </div>
 
     <div class="panel panel3">
-      <div class="caption">SURPRISE DISCOVERIES</div>
+      <div class="caption">Surprise Discoveries</div>
       <div class="speech">Some of the coolest stuff? It came from mistakes and weird tangents.</div>
       <img src="robo3.png" alt="Robo pose 3" class="robo">
     </div>
 
     <div class="panel panel4">
-      <div class="caption">FOLLOW THE JOURNEY</div>
+      <div class="caption">Follow the Journey</div>
       <div class="speech">See the full process @rahimexploring on Instagram. Raw. Honest. Daily.</div>
       <img src="robo4.png" alt="Robo pose 4" class="robo">
     </div>
