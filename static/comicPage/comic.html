@@ -25,7 +25,7 @@
         'title title'
         'p1 p2'
         'p3 p2'
-        'p4 p4';
+        'p4 insta';
       grid-template-columns: 2fr 1fr;
       grid-gap: 20px;
       position: relative;
@@ -43,7 +43,14 @@
     .panel2 { grid-area: p2; background-color: #c2f0fc; transform: rotate(1.5deg); z-index: 2; }
     .panel3 { grid-area: p3; background-color: #fdd9b5; transform: rotate(-1deg); }
     .panel4 { grid-area: p4; background-color: #d6fcb5; transform: rotate(0.5deg); }
-
+    .insta-panel {
+      grid-area: insta;
+      background: #ffffff;
+      padding: 10px;
+      border: 5px solid black;
+      box-shadow: 4px 4px 0 #000;
+      transform: rotate(-1deg);
+    }
     .speech {
       background: white;
       border: 3px solid black;
@@ -105,6 +112,7 @@
       text-transform: uppercase;
     }
   </style>
+  <script async src="https://www.instagram.com/embed.js"></script>
 </head>
 <body>
   <div class="comic-page">
@@ -132,6 +140,10 @@
       <div class="caption">Follow the Journey</div>
       <div class="speech">See the full process @rahimexploring on Instagram. Raw. Honest. Daily.</div>
       <img src="robo4.png" alt="Robo pose 4" class="robo">
+    </div>
+
+    <div class="insta-panel">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DHZJV7FyOrU/" data-instgrm-version="14" style="width:100%; max-width:100%; margin: 0 auto;"></blockquote>
     </div>
   </div>
 </body>
