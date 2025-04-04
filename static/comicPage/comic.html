@@ -1,43 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>50 Days of Making – Comic</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="comic.css" />
+  <meta charset="UTF-8">
+  <title>50 Days of Making – Comic Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #fdf38c;
+      font-family: 'Bangers', cursive;
+    }
+    .comic-layout {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      grid-template-areas:
+        'title title title'
+        'left right tall'
+        'caption caption caption'
+        'wide wide stacked';
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+    }
+    .panel {
+      border: 5px solid black;
+      background: white;
+      box-shadow: 6px 6px 0 black;
+      padding: 20px;
+      position: relative;
+    }
+    .panel img.robo {
+      width: 60px;
+      position: absolute;
+      top: -30px;
+      left: -30px;
+    }
+    .speech {
+      font-size: 1.5rem;
+      line-height: 1.4;
+    }
+    .title-panel {
+      grid-area: title;
+      display: flex;
+      align-items: center;
+    }
+    .title-panel img {
+      width: 100px;
+      margin-right: 20px;
+    }
+    .left-panel { grid-area: left; }
+    .right-panel { grid-area: right; }
+    .stacked-panel { grid-area: stacked; }
+    .tall-panel {
+      grid-area: tall;
+      height: 100%;
+    }
+    .wide-panel { grid-area: wide; }
+    .caption-panel {
+      grid-area: caption;
+      background: black;
+      color: yellow;
+      font-size: 2rem;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 6px 6px 0 black;
+    }
+  </style>
 </head>
 <body>
-  <div class="comic-page">
-    <div class="comic-panel">
-      <div class="panel-title">“50 Days of Making” Begins!</div>
-      <img src="robot_intro.png" alt="Curious Robot" class="panel-image" />
-      <div class="speech-bubble">
-        Hi! I'm Robo, and I'm following Rahim as he creates something new for 50 days straight. Why? Let's find out!
-      </div>
+  <div class="comic-layout">
+    <div class="panel title-panel">
+      <img src="robo.png" alt="Robo narrator">
+      <div class="speech">Welcome to the 50 Days of Making! I'm Robo, your curious guide through this creative world.</div>
     </div>
 
-    <div class="comic-panel">
-      <div class="panel-title">Why 50 Days?</div>
-      <img src="placeholder1.jpg" alt="Why 50 Days" class="panel-image" />
-      <div class="speech-bubble">
-        Sometimes the best ideas come from momentum. This challenge is all about consistency, curiosity, and creativity.
-      </div>
+    <div class="panel left-panel">
+      <img src="robo.png" alt="Robo" class="robo">
+      <div class="speech">Why 50 days? Because repetition builds rhythm — and breakthroughs!</div>
     </div>
 
-    <div class="comic-panel">
-      <div class="panel-title">What’s Being Made?</div>
-      <img src="placeholder2.jpg" alt="Creative Work" class="panel-image" />
-      <div class="speech-bubble">
-        Paintings, digital sketches, calligraphy, maybe even sound. Each day’s different—and that’s the point!
-      </div>
+    <div class="panel right-panel">
+      <img src="robo.png" alt="Robo" class="robo">
+      <div class="speech">Every medium counts: from digital experiments to messy sketchbook pages.</div>
     </div>
 
-    <div class="comic-panel">
-      <div class="panel-title">Want to See More?</div>
-      <img src="ig_preview.png" alt="Instagram Preview" class="panel-image" />
-      <div class="speech-bubble">
-        Follow the full journey @rahimexploring on Instagram. It’s all happening there in real time!
-      </div>
+    <div class="panel tall-panel">
+      <img src="robo.png" alt="Robo" class="robo">
+      <div class="speech">The journey isn’t polished — it’s honest. That’s the real story here.</div>
+    </div>
+
+    <div class="caption-panel">MEANWHILE, BACK IN THE STUDIO...</div>
+
+    <div class="panel wide-panel">
+      <img src="robo.png" alt="Robo" class="robo">
+      <div class="speech">Follow @rahimexploring on Instagram to see every step — raw, real, and in progress.</div>
+    </div>
+
+    <div class="panel stacked-panel">
+      <img src="robo.png" alt="Robo" class="robo">
+      <div class="speech">Some days are wild. Some are subtle. But every day is one more rep in the making muscle.</div>
     </div>
   </div>
 </body>
