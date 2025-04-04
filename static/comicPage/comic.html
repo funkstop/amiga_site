@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background: #222;
+      background: #222 url('https://www.transparenttextures.com/patterns/gray-floral.png');
       font-family: 'Bangers', cursive;
       display: flex;
       justify-content: center;
@@ -16,7 +16,7 @@
     }
     .comic-page {
       width: 1000px;
-      background: white;
+      background: white url('https://www.transparenttextures.com/patterns/paper-fibers.png');
       border: 10px solid black;
       padding: 30px;
       box-shadow: 0 0 0 10px #ffec40, 0 0 0 20px black;
@@ -36,11 +36,13 @@
       padding: 20px;
       position: relative;
       color: black;
+      background-image: radial-gradient(#00000022 1px, transparent 0);
+      background-size: 5px 5px;
     }
-    .panel1 { grid-area: p1; background: #fefefe; transform: rotate(-1.5deg); }
-    .panel2 { grid-area: p2; background: #c2f0fc; transform: rotate(1.5deg); z-index: 2; }
-    .panel3 { grid-area: p3; background: #fdd9b5; transform: rotate(-1deg); }
-    .panel4 { grid-area: p4; background: #d6fcb5; transform: rotate(0.5deg); }
+    .panel1 { grid-area: p1; background-color: #fefefe; transform: rotate(-1.5deg); }
+    .panel2 { grid-area: p2; background-color: #c2f0fc; transform: rotate(1.5deg); z-index: 2; }
+    .panel3 { grid-area: p3; background-color: #fdd9b5; transform: rotate(-1deg); }
+    .panel4 { grid-area: p4; background-color: #d6fcb5; transform: rotate(0.5deg); }
 
     .speech {
       background: white;
@@ -94,7 +96,7 @@
     }
     .title-panel {
       grid-area: title;
-      background: #ffec40;
+      background: #ffec40 url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
       font-size: 2.5rem;
       text-align: center;
       padding: 30px;
