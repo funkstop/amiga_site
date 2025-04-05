@@ -1,205 +1,858 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>50 Days of Making – Comic Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background: #222 url('https://www.transparenttextures.com/patterns/gray-floral.png');
-      font-family: 'Bangers', cursive;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .comic-page {
-      width: 1000px;
-      background: white url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-      border: 10px solid black;
-      padding: 30px;
-      box-shadow: 0 0 0 10px #fff940, 0 0 0 20px black;
-      display: grid;
-      grid-template-areas:
-        'title title'
-        'p3 p2'
-        'p1 p2'
-        'p4 insta';
-      grid-template-columns: 2fr 1fr;
-      grid-gap: 20px;
-      position: relative;
-    }
-    .panel, .insta-panel {
-      border: 5px solid black;
-      box-shadow: 4px 4px 0 #000;
-      padding: 20px;
-      position: relative;
-      color: black;
-      background-image: radial-gradient(#00000022 1px, transparent 0);
-      background-size: 5px 5px;
-    }
-    .panel1 {
-      grid-area: p1;
-      background-color: #ff00ccc1;
-      transform: skewY(-1.5deg);
-    }
-    .panel2 {
-      grid-area: p2;
-      background-color: #c2f0fc;
-      transform: skewX(-2deg);
-      z-index: 2;
-    }
-    .panel3 {
-      grid-area: p3;
-      background-color: #e603ff;
-      transform: skewY(1.5deg);
-    }
-    .panel4 {
-      grid-area: p4;
-      background-color: #09f410;
-      padding: 30px;
-      transform: skewX(1.5deg);
-    }
-    .panel5 {
-      grid-area: p4;
-      background-color: #f44c09;
-      padding: 30px;
-      transform: skewX(1.5deg);
-    }
-    .panel6 {
-      grid-area: p4;
-      background-color: #f4e809;
-      transform: skewX(1.5deg);
-    }
-    .insta-panel {
-      grid-area: insta;
-      background: #ffffff;
-      transform: skewY(-1deg);
-    }
-    .speech {
-      background: white;
-      border: 3px solid black;
-      border-radius: 50% / 30%;
-      padding: 20px 30px;
-      box-shadow: 3px 3px 0 black;
-      position: relative;
-      font-size: 1rem;
-      line-height: 1.4;
-      max-width: 80%;
-      margin-left: 40px;
-    }
-    .speech::after {
-      content: '';
-      position: absolute;
-      left: -30px;
-      top: 40%;
-      width: 0;
-      height: 0;
-      border: 16px solid transparent;
-      border-right-color: white;
-      transform: translateY(-50%);
-      z-index: 2;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50 Days of Making - Comic Book Showcase</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: 'Comic Neue', cursive;
+            color: #333;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='%23000000' fill-opacity='0.1'/%3E%3C/svg%3E");
+        }
+        
+        .comic-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .comic-header {
+            background: linear-gradient(to right, #e60000, #ffcc00);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 4px solid #000;
+            box-shadow: 5px 5px 0 #000;
+            transform: rotate(-1deg);
+            text-align: center;
+        }
+        
+        .comic-title {
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 
+                3px 3px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+            margin: 0;
+            letter-spacing: 2px;
+            transform: skew(-5deg);
+        }
+        
+        .comic-subtitle {
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
+            text-shadow: 1px 1px 0 #000;
+            margin-top: 5px;
+        }
+        
+        .comic-grid {
+            display: grid;
+            grid-template-areas: 
+                "panel1 panel1 panel1 panel2"
+                "panel1 panel1 panel1 panel3"
+                "panel4 panel5 panel5 panel5"
+                "panel6 panel5 panel5 panel5"
+                "panel7 panel7 panel7 panel7";
+            gap: 4px;
+            background-color: #000;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .panel {
+            position: relative;
+            overflow: hidden;
+            padding: 15px;
+            background-color: #fff;
+            border: 2px solid #000;
+        }
+        
+        .panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0) 60%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
 
-    .speech::before {
-      content: '';
-      position: absolute;
-      left: -34px;
-      top: 40%;
-      width: 0;
-      height: 0;
-      border: 17px solid transparent;
-      border-right-color: black;
-      transform: translateY(-50%);
-      z-index: 1;
-    }
+        .panel > [class^="pattern-"] {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          pointer-events: none;
+      }
+        /* Pattern backgrounds */
+        .pattern-dots {
+            background-image: radial-gradient(#000 10%, transparent 11%), 
+                              radial-gradient(#000 10%, transparent 11%);
+            background-size: 10px 10px;
+            background-position: 0 0, 5px 5px;
+            background-repeat: repeat;
+            opacity: 0.15;
+        }
 
-    .caption {
-      background: black;
-      color: yellow;
-      padding: 10px;
-      font-size: 1.5rem;
-      box-shadow: 4px 4px 0 black;
-      margin-bottom: 10px;
-      border: 3px solid white;
-      text-transform: uppercase;
-    }
-    .panel img.robo {
-      width: 70px;
-      position: absolute;
-      bottom: -20px;
-      left: -20px;
-      z-index: 10;
-    }
-    .title-panel {
-      grid-area: title;
-      background: #ff0000db url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
-      font-size: 2rem;
-      text-align: center;
-      color: white;
-      padding: 30px;
-      border: 5px solid black;
-      box-shadow: 6px 6px 0 black;
-      text-transform: uppercase;
-    }
-    .insta-panel blockquote {
-      border: 3px dashed #000;
-      padding: 10px;
-      background: #fffef0;
-      box-shadow: 4px 4px 0 #000;
-      font-size: .8rem;
-    }
-    .insta-label {
-      font-size: 1rem;
-      margin-bottom: 10px;
-      background: black;
-      color: yellow;
-      padding: 5px 10px;
-      display: inline-block;
-      border: 2px solid white;
-    }
-  </style>
-  <script async src="https://www.instagram.com/embed.js"></script>
+        .pattern-lines {
+            background-image: repeating-linear-gradient(
+                45deg, 
+                #000, 
+                #000 1px, 
+                transparent 1px, 
+                transparent 10px
+            );
+            opacity: 0.1;
+        }
+
+        .pattern-zigzag {
+            background-image: 
+                linear-gradient(135deg, #000 25%, transparent 25%) 0 0,
+                linear-gradient(225deg, #000 25%, transparent 25%) 0 0,
+                linear-gradient(315deg, #000 25%, transparent 25%) 0 0,
+                linear-gradient(45deg, #000 25%, transparent 25%) 0 0;
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        .pattern-grid {
+            background-image: 
+                linear-gradient(#000 1px, transparent 1px),
+                linear-gradient(90deg, #000 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+
+        .pattern-cross {
+            background: 
+                radial-gradient(circle, transparent 20%, #fff 20%, #fff 80%, transparent 80%, transparent),
+                radial-gradient(circle, transparent 20%, #fff 20%, #fff 80%, transparent 80%, transparent) 25px 25px,
+                linear-gradient(#000 2px, transparent 2px) 0 -1px,
+                linear-gradient(90deg, #000 2px, #fff 2px) -1px 0;
+            background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+            opacity: 0.1;
+        }
+
+        .pattern-stars {
+            background-image: 
+                radial-gradient(#000 1px, transparent 1px),
+                radial-gradient(#000 1px, transparent 2px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            opacity: 0.1;
+        }
+        .panel-1 {
+            grid-area: panel1;
+            background-color: #ffcc00; /* Bright X-Men yellow */
+            transform: rotate(0.5deg);
+        }
+        
+        .panel-2 {
+            grid-area: panel2;
+            background-color: #e60000; /* Deep X-Men red */
+            transform: rotate(-0.5deg);
+        }
+        
+        .panel-3 {
+            grid-area: panel3;
+            background-color: #0066cc; /* Strong X-Men blue */
+            transform: rotate(0.5deg);
+        }
+        
+        .panel-4 {
+            grid-area: panel4;
+            background-color: #009933; /* Vibrant green */
+            transform: rotate(-0.5deg);
+        }
+        
+        .panel-5 {
+            grid-area: panel5;
+            background-color: #9900cc; /* Deep purple */
+            transform: rotate(0.3deg);
+        }
+        
+        .panel-6 {
+            grid-area: panel6;
+            background-color: #ff3399; /* Bright magenta */
+            transform: rotate(-0.3deg);
+        }
+        
+        .panel-7 {
+            grid-area: panel7;
+            background-color: #0099ff; /* Bright X-Men blue */
+            transform: rotate(0.2deg);
+        }
+        
+        .panel-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        /* Option 4: Comic-Style Icons */
+        .avatar-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #000;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            align-self: flex-start;
+            position: relative;
+            z-index: 3;
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .avatar-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+        
+        /* Option 6: Representative Objects */
+        .maker-object {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 5px;
+            position: relative;
+            align-self: flex-start;
+            z-index: 3;
+        }
+        
+        .text-bubble {
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            position: relative;
+            font-weight: bold;
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+        
+        .text-bubble::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 20px;
+            height: 10px;
+            background-color: #fff;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+            transform: skew(20deg);
+        }
+        
+        .avatar-bubble {
+            margin-left: 30px;
+            margin-top: -15px;
+        }
+        
+        .avatar-bubble::after {
+            left: -10px;
+            bottom: 20px;
+            transform: rotate(70deg);
+        }
+        
+        .object-bubble {
+            margin-left: 50px;
+            margin-top: -20px;
+        }
+        
+        .object-bubble::after {
+            left: -10px;
+            bottom: 25px;
+            transform: rotate(70deg);
+        }
+        
+        .caption-box {
+            background-color: #ffcc00;
+            border: 2px solid #000;
+            padding: 5px 10px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            font-style: italic;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            color: #000;
+            display: inline-block;
+            align-self: flex-start;
+        }
+        
+        .burst {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: #e60000;
+            transform: rotate(45deg);
+            top: -30px;
+            right: -30px;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: 0;
+            opacity: 0.8;
+        }
+        
+        .instagram-embed {
+            width: 100%;
+            min-height: 300px;
+            border: none;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .placeholder-text {
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .comic-footer {
+            display: flex;
+            justify-content: space-between;
+            border-top: 2px solid #000;
+            padding-top: 10px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 0.8rem;
+        }
+        
+        .comic-credits {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .credit-item {
+            font-weight: bold;
+        }
+        
+        .sound-effect {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: #ff0000;
+            text-shadow: 2px 2px 0 #000;
+            transform: rotate(-5deg);
+            position: absolute;
+            z-index: 2;
+        }
+        
+        .pow {
+            top: 20px;
+            right: 30px;
+        }
+        
+        .boom {
+            bottom: 10px;
+            left: 20px;
+        }
+        
+        .panel-1::after,
+        .panel-2::after,
+        .panel-3::after,
+        .panel-4::after,
+        .panel-5::after,
+        .panel-6::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            z-index: 1;
+        }
+        
+        .panel-1::after {
+            bottom: -15px;
+            right: 30px;
+            border-width: 15px 15px 0 0;
+            border-color: #000 transparent transparent transparent;
+            transform: rotate(15deg);
+        }
+        
+        .panel-3::after {
+            top: -15px;
+            left: 40px;
+            border-width: 0 15px 15px 0;
+            border-color: transparent #000 transparent transparent;
+            transform: rotate(-15deg);
+        }
+        
+        .panel-5::after {
+            top: 20%;
+            left: -15px;
+            border-width: 15px 15px 0 0;
+            border-color: #000 transparent transparent transparent;
+            transform: rotate(45deg);
+        }
+        
+        /* Toggle button for showing either option */
+        .options-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+        
+        .toggle-btn {
+            padding: 8px 16px;
+            background-color: #e60000;
+            color: white;
+            border: 2px solid #000;
+            cursor: pointer;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        
+        .toggle-btn.active {
+            background-color: #0066cc;
+        }
+        
+        .avatar-icons {
+            display: block;
+        }
+        
+        .maker-objects {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .comic-grid {
+                grid-template-areas: 
+                    "panel1"
+                    "panel2"
+                    "panel3"
+                    "panel4"
+                    "panel5"
+                    "panel6"
+                    "panel7";
+            }
+            
+            .panel::after {
+                display: none;
+            }
+        }
+
+      /* Varied bubble styles */
+        .bubble-angry {
+            border-radius: 10px;
+            background-color: #fff8f8;
+            border-color: #e60000;
+            box-shadow: 3px 3px 0 rgba(230, 0, 0, 0.2);
+            transform: rotate(-1deg);
+        }
+
+        .bubble-excited {
+            border-radius: 30px 30px 30px 5px;
+            background-color: #fff8e0;
+            transform: rotate(1deg);
+            box-shadow: 2px 2px 0 rgba(255, 204, 0, 0.3);
+        }
+
+        .bubble-thinking {
+            border-radius: 50% 50% 50% 20%;
+            background-color: #f0f8ff;
+            border-style: dashed;
+            transform: rotate(-0.5deg);
+        }
+
+        .bubble-shouting {
+            background-color: #ffe6f2;
+            border-width: 3px;
+            border-radius: 8px;
+            transform: skew(-5deg);
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .bubble-casual {
+            border-radius: 15px 15px 15px 2px;
+            background-color: #f0fff0;
+            transform: rotate(0.5deg);
+        }
+
+        .bubble-jagged {
+            background-color: #fff;
+            clip-path: polygon(
+                0% 15%, 15% 0%, 40% 0%, 60% 15%, 80% 0%, 100% 0%, 
+                100% 75%, 80% 100%, 50% 85%, 20% 100%, 0% 85%
+            );
+            padding: 15px 20px;
+            border: none;
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Remove after pseudo-elements from special bubbles */
+        .bubble-jagged::after,
+        .bubble-thinking::after {
+            display: none;
+        }
+
+        /* Custom connectors */
+        .bubble-thinking-connector {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            left: 20px;
+            bottom: -25px;
+            z-index: 0;
+        }
+
+        .bubble-thinking-connector::before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #f0f8ff;
+            border: 2px solid #000;
+            top: 5px;
+            left: 5px;
+        }
+
+        .bubble-thinking-connector::after {
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #f0f8ff;
+            border: 2px solid #000;
+            top: 18px;
+            left: 0px;
+        }
+    </style>
 </head>
 <body>
-  <div class="comic-page">
-    <div class="title-panel">50 Days of Making!</div>
+    <div class="comic-container">
+        <header class="comic-header">
+            <h1 class="comic-title">50 DAYS OF MAKING!</h1>
+            <p class="comic-subtitle">An epic journey of continuous creation</p>
+        </header>
+        
+        <div class="options-toggle">
+            <button class="toggle-btn active" onclick="showOption('avatar-icons')">Option 4: Avatar Icons</button>
+            <button class="toggle-btn" onclick="showOption('maker-objects')">Option 6: Maker Objects</button>
+        </div>
+        
+        <div class="comic-grid">
+            <div class="panel panel-1">
+              <div class="pattern-dots"></div>
+                <div class="burst"></div>
+                <div class="panel-content">
+                    <div class="caption-box">DAY 1: The challenge begins!</div>
+                    
+                    <!-- Option 4: Avatar Icons -->
+                    <div class="avatar-icons">
+                        <div class="avatar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2">
+                                <circle cx="12" cy="8" r="5"/>
+                                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                                <path d="M8 14l2-2 2 2"/>
+                                <path d="M16 14l-2-2-2 2"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble avatar-bubble bubble-excited">I decided to start a 50 days of making challenge... hopefully I can do it and make it something ongoing</div>
+                      </div>
+                    
+                    <!-- Option 6: Maker Objects -->
+                    <div class="maker-objects">
+                        <div class="maker-object">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble object-bubble">I decided to start a 50 days of making challenge... hopefully I can do it and make it something ongoing</div>
+                    </div>
+                    
+                    <div class="sound-effect pow">BOOM!</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-2">
+              <div class="pattern-lines"></div>
 
-    <div class="panel panel3">
-      <div class="panel panel6">
-        <div class="caption">Day 1</div>
-        <div class="speech">I started: 50 days, 50 chances to experiment, explore, and build a rhythm.</div>
-        <img src="robo3.png" alt="Robo pose 3" class="robo">
-      </div>
-      <div class="insta-panel">
-        <div class="insta-label">Captured on Day 31</div>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DHZJV7FyOrU/" data-instgrm-version="14" style="width:100%; max-width:100%; margin: 0 auto;"></blockquote>
-      </div>
-      
+                <div class="panel-content">
+                    <div class="caption-box">The mission...</div>
+                    
+                    <!-- Option 4: Avatar Icons -->
+                    <div class="avatar-icons">
+                        <div class="avatar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0066cc" stroke-width="2">
+                                <circle cx="12" cy="8" r="5"/>
+                                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                                <path d="M9 11l3-3 3 3"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble avatar-bubble bubble-shouting">50 days. 50 creations. No excuses! Make something every day, no matter how small!</div>
+                    </div>
+                    
+                    <!-- Option 6: Maker Objects -->
+                    <div class="maker-objects">
+                        <div class="maker-object">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0066cc" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble object-bubble">50 days. 50 creations. No excuses! Make something every day, no matter how small!</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-3">
+                <div class="panel-content">
+                    <div class="caption-box">The rules are simple...</div>
+                    
+                    <!-- Option 4: Avatar Icons -->
+                    <div class="avatar-icons">
+                        <div class="avatar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2">
+                                <circle cx="12" cy="8" r="5"/>
+                                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                                <path d="M9 14h6"/>
+                                <path d="M12 11v6"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble avatar-bubble bubble-casual">The idea: use audio tracks, to make patterns that move to the music - using Touchdesigner to begin with</div>
+                    </div>
+                    
+                    <!-- Option 6: Maker Objects -->
+                    <div class="maker-objects">
+                        <div class="maker-object">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble object-bubble">The idea: use audio tracks, to make patterns that move to the music - using Touchdesigner to begin with</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-4">
+                <div class="panel-content">
+                    <div class="caption-box">The journey so far...</div>
+                    
+                    <!-- Option 4: Avatar Icons -->
+                    <div class="avatar-icons">
+                        <div class="avatar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#009933" stroke-width="2">
+                                <circle cx="12" cy="8" r="5"/>
+                                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                                <path d="M8 14l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble avatar-bubble">took a break at day 19. Then started again but stopped at Day 32. 
+                          Basic process: download an audio track from MP3Juice, then use Spleeter to split the audio into 4 tracks. 
+                          Then use Touchdesigner to manipulate TOPs based on inputs from different audio inputs.
+                        </div>
+                    </div>
+                    
+                    <!-- Option 6: Maker Objects -->
+                    <div class="maker-objects">
+                        <div class="maker-object">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#009933" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble object-bubble">took a break at day 19. Then started again but stopped at Day 32. 
+                          Basic process: download an audio track from MP3Juice, then use Spleeter to split the audio into 4 tracks. 
+                          Then use Touchdesigner to manipulate TOPs based on inputs from different audio inputs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-5">
+                <div class="panel-content">
+                    <div class="caption-box">Featured creation:</div>
+                    <div class="instagram-embed">
+                        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DHZJV7FyOrU/" data-instgrm-version="14">
+                            <div style="padding:16px;">
+                                <a href="https://www.instagram.com/reel/DHZJV7FyOrU/" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
+                                    <div style="display: flex; flex-direction: row; align-items: center;">
+                                        <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
+                                        <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
+                                            <div style="background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
+                                            <div style="background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 19% 0;"></div>
+                                    <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
+                                        <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g transform="translate(-511.000000, -20.000000)" fill="#000000">
+                                                    <g>
+                                                        <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div style="padding-top: 8px;">
+                                        <div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
+                                    </div>
+                                    <div style="padding: 12.5% 0;"></div>
+                                    <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
+                                        <div>
+                                            <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
+                                            <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
+                                            <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
+                                        </div>
+                                        <div style="margin-left: 8px;">
+                                            <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
+                                            <div style="width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
+                                        </div>
+                                        <div style="margin-left: auto;">
+                                            <div style="width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
+                                            <div style="background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
+                                            <div style="width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
+                                        <div style="background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
+                                        <div style="background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </blockquote>
+                        <script async src="//www.instagram.com/embed.js"></script>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-6">
+              <div class="pattern-stars"></div>
+                <div class="panel-content">
+                    <div class="caption-box">Behind the scenes...</div>
+                    
+                    <!-- Option 4: Avatar Icons -->
+                    <div class="avatar-icons">
+                        <div class="avatar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff3399" stroke-width="2">
+                                <circle cx="12" cy="8" r="5"/>
+                                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                                <path d="M9 16l3-3 3 3"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble avatar-bubble">Ok it already got boring... Touch designer is just another piece of software. 
+                          I was becoming better at Touchdesigner - but not in creating somethign interesting... 
+                          Need to update my process and routines to allow for other software or tools!</div>
+                    </div>
+                    
+                    <!-- Option 6: Maker Objects -->
+                    <div class="maker-objects">
+                        <div class="maker-object">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff3399" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble object-bubble">Ok it already got boring... Touch designer is just another piece of software. 
+                          I was becoming better at Touchdesigner - but not in creating somethign interesting... 
+                          Need to update my process and routines to allow for other software or tools!</div>
+                    </div>
+                    
+                    <div class="sound-effect boom">POW!</div>
+                </div>
+            </div>
+            
+            <div class="panel panel-7">
+                <div class="panel-content">
+                    <div class="caption-box">The adventure continues!</div>
+                    
+                    <!-- Option 4: Avatar Icons -->
+                    <div class="avatar-icons">
+                        <div class="avatar-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0099ff" stroke-width="2">
+                                <circle cx="12" cy="8" r="5"/>
+                                <path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/>
+                                <path d="M8 14h.01"/>
+                                <path d="M12 14h.01"/>
+                                <path d="M16 14h.01"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble avatar-bubble">Follow along on my Instagram @rahimexploring -- watch me grow my superpowers</div>
+                    </div>
+                    
+                    <!-- Option 6: Maker Objects -->
+                    <div class="maker-objects">
+                        <div class="maker-object">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0099ff" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </div>
+                        <div class="text-bubble object-bubble">Follow along on my Instagram @rahimexploring -- watch me grow my superpowers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="comic-footer">
+            <div class="comic-credits">
+                <span class="credit-item">Creator: Rahim</span>
+                <span class="credit-item">Issue #1</span>
+            </div>
+            <div class="comic-issue">
+                <span>Instagram: @rahimismailhasham</span>
+            </div>
+        </footer>
     </div>
-
-    <div class="panel panel2">
-      <div class="panel panel4">
-        <div class="caption">What am I exploring?</div>
-        <div class="speech">The idea: use audio tracks, to make patterns that move to the music - using Touchdesigner to begin with. But that will change.</div>
-        <img src="robo1.png" alt="Robo pose 1" class="robo">
-      </div>
-      <div class="panel panel1">
-        <div class="caption">Surprise Discoveries</div>
-        <div class="speech">Touch designer is just another piece of software. I got bored of it and started to trail off. Need a better process which keeps the concept, but adds tools!</div>
-        <img src="robo4.png" alt="Robo pose 1" class="robo">
-      </div>
-      <div class="panel panel5">
-        <div class="caption">Follow the Journey</div>
-        <div class="speech"> @rahimexploring on Instagram.</div>
-        <img src="robo1.png" alt="Robo pose 4" class="robo">
-      </div>
-    </div>
-
     
-
-    
-  </div>
+    <script>
+        function showOption(option) {
+            if (option === 'avatar-icons') {
+                document.querySelectorAll('.avatar-icons').forEach(el => el.style.display = 'block');
+                document.querySelectorAll('.maker-objects').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.toggle-btn').forEach(btn => {
+                    if (btn.textContent.includes('Avatar')) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            } else {
+                document.querySelectorAll('.avatar-icons').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.maker-objects').forEach(el => el.style.display = 'block');
+                document.querySelectorAll('.toggle-btn').forEach(btn => {
+                    if (btn.textContent.includes('Maker')) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>

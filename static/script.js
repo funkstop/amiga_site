@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
             shellContent.innerHTML += '<div>list - List all tasks</div>';
             shellContent.innerHTML += '<div>help - Show available commands</div>';
             shellContent.innerHTML += '<br>';
+            shellContent.innerHTML += '<div>You could also say hello or seek some wisdom</div>';
             scrollToBottom();
         },
         'hello': () => {

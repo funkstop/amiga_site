@@ -1,95 +1,674 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JVC PC-55 Panel</title>
+    <title>JVC PC-55 Spotify Player</title>
     <style>
-        .panel {
-            width: 600px;
-            height: 250px;
-            background-color: #333;
-            border-radius: 10px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e4d5d5;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+        }
+        
+        .container {
             position: relative;
-            overflow: hidden;
-            padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
         }
-
-        .row {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-        }
-
-        .button {
-            width: 40px;
-            height: 40px;
-            background-color: #444;
-            border-radius: 50%;
-        }
-
-        .slider {
-            width: 40px;
-            height: 120px;
-            background-color: #444;
-            border-radius: 10px;
+        
+        .boombox {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
             position: relative;
         }
-
-        .slider-thumb {
-            width: 40px;
-            height: 20px;
-            background-color: #666;
+        
+        .boombox:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+        
+        .control-panel {
+            background-color: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .button-overlay {
             position: absolute;
-            top: 50px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
-
-        .display {
-            width: 200px;
-            height: 60px;
-            background-color: #222;
+        
+        .control-button {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            pointer-events: auto;
+            /* Debug mode - add visible borders */
+            border: 2px solid red;
+            /* Uncomment this line to make the buttons more visible during positioning */
+            /* background-color: rgba(255, 0, 0, 0.3); */
+        }
+        
+        .control-button:hover {
+            background-color: rgba(30, 215, 96, 0.4);
+        }
+        
+        #playPauseButton {
+            width: 150px;
+            height: 150px;
+            top: 25%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+        
+        #nextButton {
+            width: 150px;
+            height: 150px;
+            top: 25%;
+            left: 85%;
+            transform: translate(-50%, -50%);
+        }
+        
+        #prevButton {
+            width: 150px;
+            height: 150px;
+            top: 25%;
+            left: 15%;
+            transform: translate(-50%, -50%);
+        }
+        
+        
+        #volumeUpButton {
+            width: 30px;
+            height: 30px;
+            top: 80%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+        }
+        
+        #volumeDownButton {
+            width: 30px;
+            height: 30px;
+            top: 80%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .status {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .status.playing {
+            color: #1ED760;
+        }
+        
+        .status.paused {
+            color: #FFA500;
+        }
+        
+        .track-info {
+            margin-bottom: 15px;
+        }
+        
+        .spotify-container {
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        #manual-embed {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
+            text-align: left;
         }
-
-        .cassette {
-            width: 160px;
-            height: 100px;
-            background-color: #444;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cassette-hole {
-            width: 40px;
-            height: 60px;
-            background-color: #333;
-            border-radius: 5px;
-            margin: 10px;
+        
+        @media (max-width: 600px) {
+            #playPauseButton {
+                width: 40px;
+                height: 40px;
+            }
+            
+            #nextButton, #prevButton {
+                width: 30px;
+                height: 30px;
+            }
+            
+            #volumeUpButton, #volumeDownButton {
+                width: 25px;
+                height: 25px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="panel">
-        <div class="row">
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="button"></div>
-            <div class="slider">
-                <div class="slider-thumb"></div>
+    <h1>JVC PC-55 Spotify Player</h1>
+    
+    <div class="container">
+        <div class="boombox-container">
+            <img src="s-l1600.png" alt="JVC PC-55 Control Panel" class="boombox" id="boombox">
+            
+            <div class="button-overlay">
+                <div class="control-button" id="playPauseButton" title="Play/Pause"></div>
+                <div class="control-button" id="nextButton" title="Next Track"></div>
+                <div class="control-button" id="prevButton" title="Previous Track"></div>
+                <div class="control-button" id="volumeUpButton" title="Volume Up"></div>
+                <div class="control-button" id="volumeDownButton" title="Volume Down"></div>
             </div>
-            <div class="display"></div>
+            
+            <!-- Debug mode toggle button -->
+            <button id="toggleDebugMode" style="position: absolute; top: 10px; right: 10px; z-index: 100;">
+                Toggle Debug Mode
+            </button>
         </div>
-        <div class="row">
-            <div class="cassette">
-                <div class="cassette-hole"></div>
-                <div class="cassette-hole"></div>
+        
+        <div class="control-panel">
+            <p class="status paused" id="playbackStatus">PAUSED</p>
+            <p class="track-info" id="trackInfo">Click play to start music</p>
+            
+            <div class="spotify-container" id="spotify-container">
+                <!-- Spotify player will be inserted here via JavaScript -->
             </div>
+            
+            <!-- Manual embed button as fallback -->
+            <div id="manual-embed">
+                <p>If the Spotify player doesn't appear automatically:</p>
+                <button id="loadSpotifyButton">Load Spotify Player</button>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>How to use your JVC PC-55 Spotify Player:</h3>
+            <ul>
+                <li><strong>Center button (triangle):</strong> Play/Pause music</li>
+                <li><strong>Right button:</strong> Next track</li>
+                <li><strong>Left button:</strong> Previous track</li>
+                <li><strong>Bottom right:</strong> Volume up</li>
+                <li><strong>Bottom left:</strong> Volume down</li>
+            </ul>
+            <p>Note: If controls aren't working, try clicking directly on the Spotify player once to activate it.</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get UI elements
+            const boombox = document.getElementById('boombox');
+            const playPauseButton = document.getElementById('playPauseButton');
+            const nextButton = document.getElementById('nextButton');
+            const prevButton = document.getElementById('prevButton');
+            const volumeUpButton = document.getElementById('volumeUpButton');
+            const volumeDownButton = document.getElementById('volumeDownButton');
+            const playbackStatus = document.getElementById('playbackStatus');
+            const trackInfo = document.getElementById('trackInfo');
+            const spotifyContainer = document.getElementById('spotify-container');
+            const loadSpotifyButton = document.getElementById('loadSpotifyButton');
+            
+            // State variables
+            let isPlaying = false;
+            let spotifyPlayer = null;
+            let currentTrack = {
+                name: "Unknown Track",
+                artist: "Unknown Artist"
+            };
+            
+            // Spotify playlist ID - change this to your preferred playlist
+            const playlistId = '0qL2zrCquen2UyfnBOlNNW'; // Today's Top Hits playlist
+            
+            // Create the Spotify iframe directly in the DOM
+            function createSpotifyEmbed() {
+                // Clear the container
+                spotifyContainer.innerHTML = '';
+                
+                // Create the iframe element with the explicit API support
+                const iframe = document.createElement('iframe');
+                iframe.id = 'spotify-iframe';
+                iframe.style.borderRadius = '12px';
+                iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
+                iframe.width = '100%';
+                iframe.height = '352';
+                iframe.frameBorder = '0';
+                iframe.allowFullscreen = '';
+                iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+                iframe.loading = 'lazy';
+                
+                // Append it to the container
+                spotifyContainer.appendChild(iframe);
+                
+                // Initial player reference is the iframe
+                spotifyPlayer = iframe;
+                
+                // Update UI
+                trackInfo.textContent = "Spotify player loaded. Click play or click directly on the player.";
+                
+                // Load the Spotify Embed SDK
+                const spotifyScript = document.createElement('script');
+                spotifyScript.src = 'https://open.spotify.com/embed-podcast/iframe-api/v1';
+                spotifyScript.async = true;
+                
+                // When the SDK loads, initialize the controller
+                spotifyScript.onload = function() {
+                    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+                        console.log("Spotify Iframe API ready");
+                        const element = document.getElementById('spotify-iframe');
+                        const options = {
+                            uri: `spotify:playlist:${playlistId}`
+                        };
+                        
+                        try {
+                            IFrameAPI.createController(element, options, (controller) => {
+                                console.log("Spotify controller initialized", controller);
+                                
+                                // Make sure the controller has the expected methods
+                                if (controller && typeof controller.play === 'function') {
+                                    console.log("Controller has play method");
+                                    spotifyPlayer = controller; // Override with the controller object
+                                    
+                                    // Test all required methods and log their availability
+                                    const methods = ['play', 'pause', 'nextTrack', 'previousTrack', 'getVolume', 'setVolume'];
+                                    methods.forEach(method => {
+                                        console.log(`Controller has ${method} method:`, typeof controller[method] === 'function');
+                                    });
+                                    
+                                    // Controller is now available for play, pause, etc.
+                                    trackInfo.textContent = "Spotify controller ready. Click JVC buttons to control.";
+                                    
+                                    // Add a listener for playback updates
+                                    if (typeof controller.addListener === 'function') {
+                                        controller.addListener('playback_update', (data) => {
+                                            console.log("Playback update:", data);
+                                            
+                                            // Update track info if available
+                                            if (data.track) {
+                                                currentTrack.name = data.track.name || "Unknown Track";
+                                                currentTrack.artist = data.track.artists && data.track.artists[0] ? 
+                                                    data.track.artists[0].name : "Unknown Artist";
+                                                
+                                                if (isPlaying) {
+                                                    updatePlaybackStatus();
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    console.warn("Controller is missing expected methods", controller);
+                                    trackInfo.textContent = "Limited Spotify control available.";
+                                }
+                            });
+                        } catch (e) {
+                            console.error("Error creating Spotify controller:", e);
+                            trackInfo.textContent = "Error initializing Spotify controller. Basic controls only.";
+                        }
+                    };
+                };
+                
+                document.head.appendChild(spotifyScript);
+            }
+            
+            // Create a fallback audio player
+            function createFallbackPlayer() {
+                audioElement = new Audio();
+                audioElement.addEventListener('play', function() {
+                    isPlaying = true;
+                    updatePlaybackStatus();
+                });
+                
+                audioElement.addEventListener('pause', function() {
+                    isPlaying = false;
+                    updatePlaybackStatus();
+                });
+                
+                audioElement.addEventListener('ended', function() {
+                    isPlaying = false;
+                    updatePlaybackStatus();
+                });
+                
+                // Create an oscillator node as fallback audio
+                try {
+                    // Create an AudioContext for generating sound as fallback
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    let oscillator = null;
+                    
+                    // Override play/pause methods for the fallback audio
+                    audioElement.play = function() {
+                        if (!oscillator) {
+                            oscillator = audioContext.createOscillator();
+                            oscillator.type = 'sine';
+                            oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4 note
+                            oscillator.connect(audioContext.destination);
+                            oscillator.start();
+                            
+                            // Trigger the play event
+                            const event = new Event('play');
+                            audioElement.dispatchEvent(event);
+                        }
+                        return Promise.resolve();
+                    };
+                    
+                    audioElement.pause = function() {
+                        if (oscillator) {
+                            oscillator.stop();
+                            oscillator = null;
+                            
+                            // Trigger the pause event
+                            const event = new Event('pause');
+                            audioElement.dispatchEvent(event);
+                        }
+                    };
+                } catch (e) {
+                    console.warn("Could not initialize audio fallback:", e);
+                }
+            }
+            
+            // Update the playback status UI
+            function updatePlaybackStatus() {
+                if (isPlaying) {
+                    playbackStatus.textContent = "PLAYING";
+                    playbackStatus.classList.remove('paused');
+                    playbackStatus.classList.add('playing');
+                    boombox.style.filter = "brightness(1.2)";
+                    trackInfo.textContent = `${currentTrack.name} - ${currentTrack.artist}`;
+                } else {
+                    playbackStatus.textContent = "PAUSED";
+                    playbackStatus.classList.remove('playing');
+                    playbackStatus.classList.add('paused');
+                    boombox.style.filter = "brightness(1)";
+                }
+            }
+            
+            // Play/pause function that works with the Spotify controller
+            function togglePlayPause() {
+                // Always update the visual state for immediate feedback
+                isPlaying = !isPlaying;
+                updatePlaybackStatus();
+                
+                // Use the Spotify controller if available
+                if (spotifyPlayer && typeof spotifyPlayer.play === 'function') {
+                    try {
+                        if (isPlaying) {
+                            console.log("Calling spotifyPlayer.play()");
+                            spotifyPlayer.play().catch(e => {
+                                console.error("Error in spotifyPlayer.play():", e);
+                                trackInfo.textContent = "Playback error. Click directly on Spotify player first.";
+                            });
+                        } else {
+                            console.log("Calling spotifyPlayer.pause()");
+                            spotifyPlayer.pause().catch(e => {
+                                console.error("Error in spotifyPlayer.pause():", e);
+                            });
+                        }
+                    } catch (e) {
+                        console.error("Exception calling spotifyPlayer methods:", e);
+                        trackInfo.textContent = "Spotify controller error. Try refreshing the page.";
+                    }
+                } else {
+                    console.warn("Spotify controller not ready or missing play/pause methods");
+                    trackInfo.textContent = "Spotify controller not ready. Try clicking the player directly.";
+                }
+            }
+            
+            // Next track function using the Spotify controller
+            function nextTrack() {
+                if (spotifyPlayer && typeof spotifyPlayer.nextTrack === 'function') {
+                    try {
+                        console.log("Calling spotifyPlayer.nextTrack()");
+                        spotifyPlayer.nextTrack().catch(e => {
+                            console.error("Error in spotifyPlayer.nextTrack():", e);
+                            // Try alternative method for next track
+                            tryAlternativeNextTrack();
+                        });
+                    } catch (e) {
+                        console.error("Exception calling spotifyPlayer.nextTrack:", e);
+                        // Try alternative method for next track
+                        tryAlternativeNextTrack();
+                    }
+                } else {
+                    console.warn("Spotify controller not ready or missing nextTrack method");
+                    trackInfo.textContent = "Trying alternative next track method...";
+                    tryAlternativeNextTrack();
+                }
+                
+                // Update the UI to show something happened
+                currentTrack.name = "Next Track";
+                currentTrack.artist = "Requested";
+                if (isPlaying) {
+                    updatePlaybackStatus();
+                }
+            }
+            
+            // Alternative method to try skipping to next track
+            function tryAlternativeNextTrack() {
+                // Try to simulate clicking the next button in the Spotify player
+                const iframe = document.getElementById('spotify-iframe');
+                if (iframe) {
+                    // Method 1: Try postMessage
+                    try {
+                        iframe.contentWindow.postMessage({
+                            type: 'spotify',
+                            action: 'next'
+                        }, '*');
+                        console.log("Sent next track postMessage");
+                    } catch (e) {
+                        console.error("Error sending next track postMessage:", e);
+                    }
+                    
+                    // Method 2: Try to find and click the next button in the iframe
+                    try {
+                        // Force focus to the iframe first
+                        iframe.focus();
+                        
+                        // Send a keyboard shortcut for next track (Shift+N is sometimes used)
+                        const keyEvent = new KeyboardEvent('keydown', {
+                            key: 'n',
+                            code: 'KeyN',
+                            shiftKey: true,
+                            bubbles: true
+                        });
+                        iframe.dispatchEvent(keyEvent);
+                        console.log("Sent keyboard shortcut for next track");
+                    } catch (e) {
+                        console.error("Error sending keyboard shortcut:", e);
+                    }
+                }
+            }
+            
+            // Previous track function using the Spotify controller
+            function prevTrack() {
+                if (spotifyPlayer && typeof spotifyPlayer.previousTrack === 'function') {
+                    try {
+                        console.log("Calling spotifyPlayer.previousTrack()");
+                        spotifyPlayer.previousTrack().catch(e => {
+                            console.error("Error in spotifyPlayer.previousTrack():", e);
+                            // Try alternative method for previous track
+                            tryAlternativePrevTrack();
+                        });
+                    } catch (e) {
+                        console.error("Exception calling spotifyPlayer.previousTrack:", e);
+                        // Try alternative method for previous track
+                        tryAlternativePrevTrack();
+                    }
+                } else {
+                    console.warn("Spotify controller not ready or missing previousTrack method");
+                    trackInfo.textContent = "Trying alternative previous track method...";
+                    tryAlternativePrevTrack();
+                }
+                
+                // Update the UI to show something happened
+                currentTrack.name = "Previous Track";
+                currentTrack.artist = "Requested";
+                if (isPlaying) {
+                    updatePlaybackStatus();
+                }
+            }
+            
+            // Alternative method to try going to previous track
+            function tryAlternativePrevTrack() {
+                // Try to simulate clicking the previous button in the Spotify player
+                const iframe = document.getElementById('spotify-iframe');
+                if (iframe) {
+                    // Method 1: Try postMessage
+                    try {
+                        iframe.contentWindow.postMessage({
+                            type: 'spotify',
+                            action: 'prev'
+                        }, '*');
+                        console.log("Sent previous track postMessage");
+                    } catch (e) {
+                        console.error("Error sending previous track postMessage:", e);
+                    }
+                    
+                    // Method 2: Try to find and click the previous button in the iframe
+                    try {
+                        // Force focus to the iframe first
+                        iframe.focus();
+                        
+                        // Send a keyboard shortcut for previous track (Shift+P is sometimes used)
+                        const keyEvent = new KeyboardEvent('keydown', {
+                            key: 'p',
+                            code: 'KeyP',
+                            shiftKey: true,
+                            bubbles: true
+                        });
+                        iframe.dispatchEvent(keyEvent);
+                        console.log("Sent keyboard shortcut for previous track");
+                    } catch (e) {
+                        console.error("Error sending keyboard shortcut:", e);
+                    }
+                }
+            }
+            
+            // Volume control using the Spotify controller
+            function volumeUp() {
+                if (spotifyPlayer && typeof spotifyPlayer.getVolume === 'function' && typeof spotifyPlayer.setVolume === 'function') {
+                    try {
+                        spotifyPlayer.getVolume().then(volume => {
+                            const newVolume = Math.min(1, volume + 0.1);
+                            console.log(`Setting volume to ${newVolume}`);
+                            spotifyPlayer.setVolume(newVolume).catch(e => {
+                                console.error("Error setting volume:", e);
+                            });
+                        }).catch(e => {
+                            console.error("Error getting current volume:", e);
+                        });
+                    } catch (e) {
+                        console.error("Exception controlling volume:", e);
+                    }
+                } else {
+                    console.warn("Spotify controller not ready or missing volume methods");
+                }
+            }
+            
+            function volumeDown() {
+                if (spotifyPlayer && typeof spotifyPlayer.getVolume === 'function' && typeof spotifyPlayer.setVolume === 'function') {
+                    try {
+                        spotifyPlayer.getVolume().then(volume => {
+                            const newVolume = Math.max(0, volume - 0.1);
+                            console.log(`Setting volume to ${newVolume}`);
+                            spotifyPlayer.setVolume(newVolume).catch(e => {
+                                console.error("Error setting volume:", e);
+                            });
+                        }).catch(e => {
+                            console.error("Error getting current volume:", e);
+                        });
+                    } catch (e) {
+                        console.error("Exception controlling volume:", e);
+                    }
+                } else {
+                    console.warn("Spotify controller not ready or missing volume methods");
+                }
+            }
+            
+            // Listen for messages from the Spotify iframe
+            window.addEventListener('message', (event) => {
+                // Filter messages from Spotify
+                if (event.data && event.data.type === 'spotify') {
+                    console.log("Received message from Spotify:", event.data);
+                    
+                    // Update track info if available
+                    if (event.data.track) {
+                        currentTrack.name = event.data.track.name || "Unknown Track";
+                        currentTrack.artist = event.data.track.artists ? 
+                            event.data.track.artists[0].name : "Unknown Artist";
+                        
+                        if (isPlaying) {
+                            updatePlaybackStatus();
+                        }
+                    }
+                    
+                    // Update play state if available
+                    if (event.data.playState) {
+                        isPlaying = event.data.playState === 'playing';
+                        updatePlaybackStatus();
+                    }
+                }
+            });
+            
+            // Set up event listeners
+            playPauseButton.addEventListener('click', togglePlayPause);
+            nextButton.addEventListener('click', nextTrack);
+            prevButton.addEventListener('click', prevTrack);
+            volumeUpButton.addEventListener('click', volumeUp);
+            volumeDownButton.addEventListener('click', volumeDown);
+            loadSpotifyButton.addEventListener('click', createSpotifyEmbed);
+            
+            // Allow clicking anywhere on the boombox to toggle play/pause
+            boombox.addEventListener('click', function(event) {
+                // Only if we didn't click a control button
+                if (!event.target.classList.contains('control-button')) {
+                    togglePlayPause();
+                }
+            });
+            
+            // Set up debug mode toggle
+            const toggleDebugButton = document.getElementById('toggleDebugMode');
+            toggleDebugButton.addEventListener('click', function() {
+                const buttons = document.querySelectorAll('.control-button');
+                buttons.forEach(button => {
+                    if (button.style.border === 'none') {
+                        button.style.border = '2px solid red';
+                        button.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+                    } else {
+                        button.style.border = 'none';
+                        button.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    }
+                });
+            });
+            
+            // Initialize with debug mode off
+            const buttons = document.querySelectorAll('.control-button');
+            buttons.forEach(button => {
+                button.style.border = 'none';
+            });
+            
+            // Initialize Spotify
+            createSpotifyEmbed();
+        });
+    </script>
 </body>
 </html>
