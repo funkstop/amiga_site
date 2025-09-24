@@ -346,7 +346,7 @@
       <!-- Inline story/highlight player (local files) -->
         <div id="mf-ig-player" style="margin:10px 0;">
             <video id="mf-ig-video" playsinline controls preload="metadata"
-                poster="icons/DefPicture.png"
+                poster="cover.png"
                 style="width:100%; height:auto; max-height:70vh; background:#000;"
                 src="media/makerfaire/highlight1.mp4"></video>
           <!--  <div style="display:flex; gap:8px; margin-top:8px;">
@@ -383,25 +383,101 @@
 
 
     <footer>
-        Visitors since forever: <span id="visit-count">Loading…</span>
+      <!-- Visitors since forever: <span id="visit-count">Loading…</span> -->
         <!-- Counter (static-host friendly) -->
-        <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
         <script>
-        const BASELINE = 3500000; // your retro estimate
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-            // Use any unique namespace/key you like:
-            const counter = new window.Counter({ version: 'v1', namespace: 'funkstop-amiga-2025' });
-            // Increment and read the value
-            const result = await counter.up('visits'); // increments by 1
-            const value = (result && (result.value ?? result.data ?? 0)) | 0;
-            document.getElementById('visit-count').textContent = (BASELINE + value).toLocaleString();
-            } catch (err) {
-            console.warn('Counter error:', err);
-            document.getElementById('visit-count').textContent = '—';
-            }
-        });
-        </script>
+/* Robust visitor counter for static hosting (GitHub Pages)
+   - Tries CounterAPI via jsDelivr
+   - Falls back to CountAPI
+   - Finally falls back to local daily-unique (no network)
+   - Always adds your BASELINE
+* /
+(function(){
+  const BASELINE   = 3600000;                   // your retro estimate
+  const NAMESPACE  = 'funkstop-amiga-2025';  // any unique string, keep stable
+  const KEY        = 'visits';
+  const ELID       = 'visit-count';
+
+  function setCount(n){
+    const el = document.getElementById(ELID);
+    if (el) el.textContent = Number(n).toLocaleString();
+  }
+  function setDash(){ const el = document.getElementById(ELID); if (el) el.textContent = '—'; }
+
+  // Provider A: CounterAPI via jsDelivr
+  async function providerCounterAPI(){
+    console.log('[Counter] trying CounterAPI via jsDelivr…');
+    await new Promise((resolve, reject) => {
+      if (window.Counter) return resolve();
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js';
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('CDN load failed'));
+      document.head.appendChild(s);
+    });
+    const c = new window.Counter({ version: 'v1', namespace: NAMESPACE });
+    const res = await c.up(KEY); // increments by 1
+    console.log('[Counter] CounterAPI response:', res);
+    const v = (typeof res === 'number' ? res : (res && (res.value ?? res.data ?? res.count))) ?? 0;
+    if (!Number.isFinite(v)) throw new Error('CounterAPI returned invalid value');
+    return v;
+  }
+
+  // Provider B: CountAPI (sometimes blocked by DNS/filters)
+  async function providerCountAPI(){
+    console.log('[Counter] trying CountAPI…');
+    const url = 'https://api.countapi.xyz/hit/' + encodeURIComponent(NAMESPACE) + '/' + encodeURIComponent(KEY);
+    const r = await fetch(url, { mode: 'cors' });
+    if (!r.ok) throw new Error('CountAPI HTTP ' + r.status);
+    const j = await r.json();
+    console.log('[Counter] CountAPI response:', j);
+    const v = (typeof j === 'number' ? j : (j && (j.value ?? j.data ?? j.count))) ?? 0;
+    if (!Number.isFinite(v)) throw new Error('CountAPI returned invalid value');
+    return v;
+  }
+
+  // Provider C: Local daily-unique (works everywhere; not global)
+  function providerLocalDaily(){
+    console.log('[Counter] falling back to local daily-unique…');
+    const TOTAL_KEY = 'vc_total_local';
+    const TODAY_KEY = 'vc_seen_' + new Date().toISOString().slice(0,10); // yyyy-mm-dd
+    const total = Number(localStorage.getItem(TOTAL_KEY) || '0');
+    const seenToday = localStorage.getItem(TODAY_KEY);
+    const newTotal = seenToday ? total : total + 1;
+    if (!seenToday) {
+      localStorage.setItem(TODAY_KEY, '1');
+      localStorage.setItem(TOTAL_KEY, String(newTotal));
+    }
+    return newTotal;
+  }
+
+  async function go(){
+    try {
+      // 1) Try CounterAPI
+      const v = await providerCounterAPI();
+      setCount(BASELINE + v);
+    } catch (e1) {
+      console.warn('[Counter] CounterAPI failed:', e1);
+      try {
+        // 2) Try CountAPI
+        const v2 = await providerCountAPI();
+        setCount(BASELINE + v2);
+      } catch (e2) {
+        console.warn('[Counter] CountAPI failed:', e2);
+        // 3) Local fallback
+        const v3 = providerLocalDaily();
+        setCount(BASELINE + v3);
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', go);
+  } else {
+    go();
+  }
+})();*/
+</script>
 
 
         <p>Made with ♥ and nostalgia by <a href="http://www.linkedin.com/in/rahimadatia">Rahim</a></p>
