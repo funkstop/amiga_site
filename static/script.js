@@ -340,63 +340,187 @@ document.querySelectorAll('.window').forEach((windowElement) => {
     makeDraggable(windowElement);
 });
 
-// ===== Maker Faire Modal =====
+/* ========================= Maker Faire Modal + Inline Player ========================= */
+// -- Show/hide --
 (function () {
-  const MODAL_ID = 'mf-modal';
-  const OK_BTN_ID = 'mf-close-btn';
-  const STORAGE_KEY = 'mf_popup_seen_at'; // controls once-per-day behavior
+  function $id(id) { return document.getElementById(id); }
+  function showMF() {
+    const m = $id('mf-modal');
+    if (m) {
+        m.style.display = 'flex';
+        // tell the player to (re)load if needed
+        document.dispatchEvent(new CustomEvent('mf-reopen'));
+    }
+    }
 
-  function $(id) { return document.getElementById(id); }
-  function showModal() {
-    const m = $(MODAL_ID);
-    if (m) m.classList.remove('hidden');
-  }
-  function hideModal() {
-    const m = $(MODAL_ID);
-    if (m) m.classList.add('hidden');
-  }
+    function hideMF() {
+    const m = $id('mf-modal');
+    if (m) {
+        // stop all media inside the modal
+        m.querySelectorAll('video, audio').forEach(el => {
+        try {
+            el.pause();
+            el.currentTime = 0;
+            // fully unload to stop audio/network
+            el.removeAttribute('src');
+            el.load();
+        } catch {}
+        });
+        m.style.display = 'none';
+    }
+    }
 
-  // show at most once per 24h
-  function shouldShow() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return true;
-    const last = Number(raw) || 0;
-    return (Date.now() - last) > 24 * 60 * 60 * 1000;
-  }
-  function markSeen() {
-    localStorage.setItem(STORAGE_KEY, String(Date.now()));
-  }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const modal = $(MODAL_ID);
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = $id('mf-modal');
     if (!modal) return;
 
-    // open once per day; NO automatic date cutoff (manual per your preference)
-    if (shouldShow()) {
-      showModal();
-      markSeen();
-    }
+    // Always show on page load
+    showMF();
 
-    // Close on OK
-    const okBtn = $(OK_BTN_ID);
-    if (okBtn) okBtn.addEventListener('click', hideModal);
+    // Close only via explicit actions
+    const x = $id('mf-close-icon');
+    if (x) x.addEventListener('click', () => { window._mfExplicitClose = true; hideMF(); });
 
-    // Close if clicking the backdrop (but not the inner window)
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) hideModal();
-    });
+    const ok = $id('mf-close-btn');
+    if (ok) ok.addEventListener('click', () => { window._mfExplicitClose = true; hideMF(); });
 
-    // Optional: wire the titlebar close icon if present
-    const closeIcon = modal.querySelector('.close-icon');
-    if (closeIcon) {
-      closeIcon.addEventListener('click', hideModal);
-    }
+    // Intentionally NOT closing on backdrop click
   });
 
-  // Expose manual controls in console if you want to test:
-  window._mfShow = showModal;
-  window._mfHide = hideModal;
+  // -- Lock in place: block site-wide drags and style mutations that move/hide it --
+  (function lockModal() {
+    const MODAL_SEL = '#mf-modal';
+    const WIN_SEL   = '#mf-window';
+
+    function withinModal(target) {
+      return target && target.closest && target.closest(MODAL_SEL);
+    }
+
+    // Block drag starters inside modal (capture phase beats global handlers)
+    ['pointerdown','mousedown','touchstart'].forEach(evt => {
+      document.addEventListener(evt, (e) => {
+        if (withinModal(e.target)) {
+          e.stopImmediatePropagation();
+          const isControl = e.target.closest('#mf-close-btn, #mf-close-icon, a, button, video, input, select, textarea');
+          if (!isControl) e.preventDefault();
+        }
+      }, true);
+    });
+
+    // Revert any style changes trying to reposition/hide the inner window
+    document.addEventListener('DOMContentLoaded', () => {
+      const mw = document.querySelector(WIN_SEL);
+      if (mw) {
+        const enforce = () => {
+          mw.style.position = 'relative';
+          mw.style.left = 'auto';
+          mw.style.top  = 'auto';
+          const modal = document.querySelector(MODAL_SEL);
+          if (modal && getComputedStyle(modal).display !== 'none') {
+            mw.style.display = 'block';
+          }
+        };
+        enforce();
+        new MutationObserver(enforce).observe(mw, { attributes: true, attributeFilter: ['style', 'class'] });
+      }
+
+      // If something hides the modal programmatically, reopen unless user explicitly closed
+      const modal = document.querySelector(MODAL_SEL);
+      if (modal) {
+        new MutationObserver(() => {
+          const hidden = getComputedStyle(modal).display === 'none';
+          if (hidden && !window._mfExplicitClose) modal.style.display = 'flex';
+        }).observe(modal, { attributes: true, attributeFilter: ['style', 'class'] });
+      }
+    });
+
+    // Reload first story if modal is reopened and video has no src
+    document.addEventListener('mf-reopen', () => {
+        if (video && !video.src) load(0);
+        });
+
+  })();
+
+  // Expose for console testing if you like
+  window._mfShow = showMF;
+  window._mfHide = hideMF;
 })();
 
+/* ======================= Inline "Stories" Video Player (+ diag) ====================== */
+(function () {
+  // TODO: add your real MP4 paths (relative to index.html)
+  // Example: const MF_STORIES = ['media/makerfaire/story1.mp4', 'media/makerfaire/story2.mp4'];
+  const MF_STORIES = [
+    // 'media/makerfaire/story1.mp4',
+    // 'media/makerfaire/story2.mp4',
+    'makerFaire2023.mp4'
+  ];
 
+  function $id(id) { return document.getElementById(id); }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const video   = $id('mf-ig-video');
+   // const prevBtn = $id('mf-ig-prev');
+   // const nextBtn = $id('mf-ig-next');
+   // const counter = $id('mf-ig-counter');
+    if (!video ) return; //|| !prevBtn || !nextBtn || !counter) return;
+
+    // small inline status
+    let statusEl = document.createElement('div');
+    statusEl.id = 'mf-ig-status';
+    statusEl.style.marginTop = '6px';
+    statusEl.style.fontSize = '12px';
+    statusEl.style.color = '#ff8080';
+    video.insertAdjacentElement('afterend', statusEl);
+    const status = (msg) => { console.warn('[MF Player]', msg); statusEl.textContent = msg || ''; };
+
+    let idx = 0;
+
+    async function exists(url) {
+      try {
+        const res = await fetch(url, { method: 'GET', headers: { 'Range': 'bytes=0-0' } });
+        return res.ok || res.status === 206;
+      } catch { return false; }
+    }
+
+    async function load(i) {
+      if (!MF_STORIES.length) {
+        status('No videos configured. Edit MF_STORIES in script.js to add your MP4 paths.');
+        video.removeAttribute('src'); video.load();
+        counter.textContent = '0 / 0';
+       // prevBtn.disabled = true; nextBtn.disabled = true;
+        return;
+      }
+      idx = (i + MF_STORIES.length) % MF_STORIES.length;
+      const url = MF_STORIES[idx];
+      status('Loading: ' + url);
+
+      const ok = await exists(url);
+      if (!ok) {
+        status('Not found or blocked: ' + url + ' — check path/case (Network tab).');
+        counter.textContent = (idx+1) + ' / ' + MF_STORIES.length + ' (error)';
+        return;
+      }
+
+      status('');
+      video.src = url;
+      video.load();
+      video.play().catch(() => status('Autoplay blocked. Press play ►'));
+
+      counter.textContent = (idx+1) + ' / ' + MF_STORIES.length;
+     // prevBtn.disabled = MF_STORIES.length <= 1;
+     // nextBtn.disabled = MF_STORIES.length <= 1;
+    }
+
+  //  prevBtn.addEventListener('click', () => load(idx - 1));
+  //  nextBtn.addEventListener('click', () => load(idx + 1));
+    video.addEventListener('ended', () => load(idx + 1));
+    video.addEventListener('error', () => status('Video error for ' + (video.currentSrc || video.src || '(no src)')));
+    video.addEventListener('stalled', () => status('Network stalled loading video.'));
+    video.addEventListener('abort',   () => status('Video load aborted.'));
+
+    load(0);
+  });
+})();
 
