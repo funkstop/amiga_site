@@ -340,4 +340,63 @@ document.querySelectorAll('.window').forEach((windowElement) => {
     makeDraggable(windowElement);
 });
 
+// ===== Maker Faire Modal =====
+(function () {
+  const MODAL_ID = 'mf-modal';
+  const OK_BTN_ID = 'mf-close-btn';
+  const STORAGE_KEY = 'mf_popup_seen_at'; // controls once-per-day behavior
+
+  function $(id) { return document.getElementById(id); }
+  function showModal() {
+    const m = $(MODAL_ID);
+    if (m) m.classList.remove('hidden');
+  }
+  function hideModal() {
+    const m = $(MODAL_ID);
+    if (m) m.classList.add('hidden');
+  }
+
+  // show at most once per 24h
+  function shouldShow() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return true;
+    const last = Number(raw) || 0;
+    return (Date.now() - last) > 24 * 60 * 60 * 1000;
+  }
+  function markSeen() {
+    localStorage.setItem(STORAGE_KEY, String(Date.now()));
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const modal = $(MODAL_ID);
+    if (!modal) return;
+
+    // open once per day; NO automatic date cutoff (manual per your preference)
+    if (shouldShow()) {
+      showModal();
+      markSeen();
+    }
+
+    // Close on OK
+    const okBtn = $(OK_BTN_ID);
+    if (okBtn) okBtn.addEventListener('click', hideModal);
+
+    // Close if clicking the backdrop (but not the inner window)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) hideModal();
+    });
+
+    // Optional: wire the titlebar close icon if present
+    const closeIcon = modal.querySelector('.close-icon');
+    if (closeIcon) {
+      closeIcon.addEventListener('click', hideModal);
+    }
+  });
+
+  // Expose manual controls in console if you want to test:
+  window._mfShow = showModal;
+  window._mfHide = hideModal;
+})();
+
+
 

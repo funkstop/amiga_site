@@ -349,3 +349,32 @@ footer {
 .window {
     transition: left 0.05s ease, top 0.05s ease;
 }
+
+/* Backdrop container */
+.amiga-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  z-index: 9999;
+}
+.amiga-modal.hidden { display: none; }
+
+/* Make the modal window nicely sized on desktop/mobile */
+.amiga-modal .mf-window {
+  max-width: 560px;
+  width: min(92vw, 560px);
+  max-height: 80vh;
+  overflow: auto;
+  box-shadow: 6px 6px 0 #000; /* fits the Amiga vibe */
+}
+
+/* Simple button style (if you already have .amiga-btn, this will be ignored) */
+.amiga-btn {
+  padding: 6px 12px;
+  border: 1px solid #333;
+  background: #e0e0e0;
+  cursor: pointer;
+}

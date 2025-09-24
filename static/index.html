@@ -317,6 +317,39 @@
             </div>
         </main>
     </div>
+    <!-- Maker Faire Modal -->
+    <div id="mf-modal" class="amiga-modal hidden" role="dialog" aria-modal="true" aria-labelledby="mf-title">
+    <div class="window mf-window">
+        <div class="window-bar">
+        <div class="section close-icon">
+            <img src="icons/button_close.png" alt="Close Window">
+        </div>
+        <div class="section title-text">Maker Faire</div>
+        <div class="section title-bar-bg-pattern"></div>
+        <div class="section send-back-icon">
+            <img src="icons/button_down.png" alt="Send to Background">
+        </div>
+        <div class="section bring-forward-icon">
+            <img src="icons/button_up.png" alt="Bring to Foreground">
+        </div>
+        </div>
+        <div class="window-content">
+        <h3 id="mf-title" style="margin-top:0;">See my piece at Maker Faire!</h3>
+        <p><strong>When:</strong> This weekend (Sat–Sun)</p>
+        <p><strong>Where:</strong> Bay Area Maker Faire — details below</p>
+        <p><a href="#maker-faire" id="mf-internal-link">Jump to details ↴</a></p>
+        <div style="margin-top:8px;">
+            <button type="button" class="amiga-btn" id="mf-close-btn">OK</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- On-page details section the modal links to -->
+    <section id="maker-faire" class="amiga-panel" style="margin:24px 0;">
+    <h2>Maker Faire — Exhibit Info</h2>
+    <p>Add your blurb here: piece name, booth/location, hours, and any meetup times.</p>
+    </section>
     <footer>
         Visitors since forever: <span id="visit-count">Loading…</span>
         <script>
