@@ -520,7 +520,11 @@ document.querySelectorAll('.window').forEach((windowElement) => {
     video.addEventListener('stalled', () => status('Network stalled loading video.'));
     video.addEventListener('abort',   () => status('Video load aborted.'));
 
-    load(0);
+    // Defer so the modal can render first, even on cold cache
+    const start = () => { try { load(0); } catch (e) { console.warn('[MF Player init]', e); } };
+    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1000 });
+    else requestAnimationFrame(start);
+
   });
 })();
 
