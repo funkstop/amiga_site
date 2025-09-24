@@ -318,6 +318,12 @@
         </main>
     </div>
     <footer>
+        Visitors since forever: <span id="visit-count">Loading…</span>
+        <script>
+        fetch('counter.php')
+            .then(r => r.text())
+            .then(num => document.getElementById('visit-count').textContent = num);
+        </script>
         <p>Made with ♥ and nostalgia by <a href="http://www.linkedin.com/in/rahimadatia">Rahim</a></p>
     </footer>
 
