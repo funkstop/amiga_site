@@ -2,26 +2,25 @@
 <html>
   <head>
     <title>2026 Predictions - Grouped</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-      <link rel="stylesheet" href="./styles/styles.css"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="./styles/styles.css"></head>
   
   <body>
-    <div id="vp" style="position:fixed;top:0;left:0;z-index:999999;background:#000;color:#fff;font:12px/1.2 system-ui;padding:6px;border-radius:0 0 8px 0"></div>
-<script>
-  (function () {
-    function paint() {
-      const vv = window.visualViewport;
-      const s = vv ? vv.scale : null;
-      document.getElementById('vp').textContent =
-        `innerWidth=${window.innerWidth}  ` +
-        `clientWidth=${document.documentElement.clientWidth}  ` +
-        (vv ? `vv.width=${Math.round(vv.width)}  scale=${s}` : '');
-    }
-    paint();
-    window.addEventListener('resize', paint);
-    if (window.visualViewport) window.visualViewport.addEventListener('resize', paint);
-  })();
-</script>
+    <div id="vp" style="position:fixed;top:0;left:0;z-index:999999;background:#000;color:#fff;font:12px/1.2 system-ui;padding:6px"></div>
+    <script>
+      (function () {
+        function paint() {
+          const vv = window.visualViewport;
+          document.getElementById('vp').textContent =
+            `innerWidth=${window.innerWidth} ` +
+            `clientWidth=${document.documentElement.clientWidth} ` +
+            (vv ? `vv.width=${Math.round(vv.width)} scale=${vv.scale.toFixed(2)}` : '');
+        }
+        paint();
+        window.addEventListener('resize', paint);
+        window.visualViewport?.addEventListener('resize', paint);
+      })();
+    </script>
     <div class="container mx-auto max-w-full p-4 bg-gray-50 min-h-screen">
       <h1 class="text-2xl font-bold mb-4 text-gray-800">2026 Predictions by Theme</h1>
       <div class="collapse collapse-arrow mb-3 rounded-lg shadow-sm bg-gradient-to-br from-blue-100 to-cyan-100">
