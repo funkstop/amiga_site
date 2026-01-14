@@ -162,8 +162,20 @@ details[open] > summary .arrow::before{
 /* Touch feedback */
 summary:active{ opacity: .85; }
 
-/* Desktop tuning */
-@media (min-width: 640px){
+/* Touch devices: force “mobile-feel” sizing even if viewport is wide */
+@media (pointer: coarse) {
+  .page{ padding: 16px 14px 32px; }
+  h1{ font-size: 22px; margin-bottom: 16px; }
+  .theme h4{ font-size: 18px; }
+  .theme .desc{ font-size: 15px; }
+  .itemTitle{ font-size: 16px; }
+  .itemBody, .meta{ font-size: 15px; }
+  summary{ padding: 14px 16px; }
+  .themeContent{ padding: 2px 14px 14px; }
+}
+
+/* Desktop only: apply “desktop tune-up” when it’s actually a mouse/trackpad */
+@media (min-width: 640px) and (hover: hover) and (pointer: fine){
   .page{ padding: 18px 16px 36px; }
   h1{ font-size: 24px; margin-bottom: 18px; }
   .theme h4{ font-size: 18px; }
