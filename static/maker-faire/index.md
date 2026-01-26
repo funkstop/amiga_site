@@ -90,4 +90,7 @@ I didn’t get time to go get food at all \- it is not easy. The lines are insan
 **Overall:**  
 Such a great time. You can tell that a lot of exhibitors are showcasing items that they have iterated on over years, while others are presenting for the purpose of attracting customers, and others presenting for the first time (like us). If you’re interested in participating, take the leap\! It is a welcoming event and everyone is willing to help. Feel free to reach out.
 
+## other useful sites:
+* https://cjleo.com/2019/06/03/tips-for-making-the-most-of-maker-faire/
+* https://maolnrd.wixsite.com/mao-makes/post/maker-faire-bay-area
 
