@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Build Log BBS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #0a0a0a;
+            color: #33ff33;
+            font-family: 'VT323', 'Courier New', monospace;
+            font-size: 18px;
+            padding: 20px;
+            min-height: 100vh;
+            line-height: 1.4;
+        }
+
+        ::selection {
+            background: #33ff33;
+            color: #0a0a0a;
+        }
+
+        a { color: #ffaa00; text-decoration: none; }
+        a:hover { color: #ffdd44; text-decoration: underline; }
+
+        .terminal {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-box {
+            border: 1px solid #33ff33;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .header-box .title {
+            color: #ffaa00;
+            font-size: 28px;
+            letter-spacing: 4px;
+        }
+
+        .header-box .subtitle {
+            color: #33ff33;
+            font-size: 16px;
+            margin-top: 4px;
+        }
+
+        .header-box .sysop {
+            color: #888;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .divider {
+            color: #33ff33;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 12px 0;
+            opacity: 0.5;
+        }
+
+        .prompt-line {
+            color: #ffaa00;
+            margin-bottom: 8px;
+        }
+
+        .prompt-line .cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Filters */
+        .filters {
+            margin-bottom: 16px;
+        }
+        .filters span {
+            color: #888;
+        }
+        .filter-btn {
+            font-family: 'VT323', 'Courier New', monospace;
+            font-size: 18px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+        .filter-btn:hover { color: #33ff33; }
+        .filter-btn.active {
+            color: #ffaa00;
+        }
+
+        /* File listing table */
+        .file-header {
+            display: flex;
+            color: #ffaa00;
+            border-bottom: 1px solid #33ff33;
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+        .fh-date { width: 100px; }
+        .fh-name { flex: 1; }
+        .fh-cat  { width: 80px; text-align: right; }
+
+        .file-entry {
+            border-bottom: 1px solid #1a3a1a;
+            padding: 8px 0;
+        }
+        .file-row {
+            display: flex;
+            align-items: baseline;
+        }
+        .fe-date {
+            width: 100px;
+            color: #888;
+            font-size: 16px;
+        }
+        .fe-name {
+            flex: 1;
+            color: #33ff33;
+            font-size: 18px;
+        }
+        .fe-cat {
+            width: 80px;
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+        }
+        .fe-desc {
+            margin-left: 100px;
+            color: #aaa;
+            font-size: 15px;
+            margin-top: 2px;
+        }
+        .fe-links {
+            margin-left: 100px;
+            margin-top: 4px;
+            font-size: 15px;
+        }
+        .fe-links a { margin-right: 16px; }
+
+        .empty-msg {
+            color: #888;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .footer-box {
+            border-top: 1px solid #33ff33;
+            margin-top: 20px;
+            padding-top: 12px;
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+        }
+        .footer-box a { color: #888; }
+
+        /* Scanline effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.1) 2px,
+                rgba(0,0,0,0.1) 4px
+            );
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+<div style="text-align:center;padding:8px 0 12px;font-family:'VT323','Courier New',monospace;font-size:16px">
+    <span style="color:#ffaa00;border:1px solid #ffaa00;padding:2px 8px">BBS</span>
+    <a href="index_teletext.html" style="color:#888;text-decoration:none;padding:2px 8px">Teletext</a>
+    <a href="index_gopher.html" style="color:#888;text-decoration:none;padding:2px 8px">Gopher</a>
+    <a href="index_yahoo.html" style="color:#888;text-decoration:none;padding:2px 8px">Yahoo</a>
+</div>
+
+
+<div class="terminal">
+    <div class="header-box">
+        <div class="title">BOB'S BUILD LOG</div>
+        <div class="subtitle">═══ Things built, building, or broke trying ═══</div>
+        <div class="sysop">SysOp: Bob &nbsp;│&nbsp; Node 1 &nbsp;│&nbsp; 2400 baud</div>
+    </div>
+
+    <div class="divider">────────────────────────────────────────────────────────────────────────────────</div>
+
+    <div class="filters">
+        <span>AREA: </span>
+        <span id="filters"></span>
+    </div>
+
+    <div class="file-header">
+        <span class="fh-date">DATE</span>
+        <span class="fh-name">FILENAME</span>
+        <span class="fh-cat">AREA</span>
+    </div>
+
+    <div id="build-list"></div>
+
+    <div id="status-line" class="prompt-line"></div>
+
+    <div class="footer-box">
+        <a href="../index.html">← Back to Playground</a> &nbsp;│&nbsp; Press [ESC] to exit
+    </div>
+</div>
+
+<script>
+(function() {
+    let builds = [];
+    let activeFilter = 'all';
+
+    async function init() {
+        try {
+            const resp = await fetch('builds.json');
+            builds = await resp.json();
+            builds.sort((a, b) => b.date.localeCompare(a.date));
+            renderFilters();
+            renderBuilds();
+            updateStatus();
+        } catch(e) {
+            document.getElementById('build-list').innerHTML =
+                '<div class="empty-msg">ERROR: ' + e.message + '</div>';
+        }
+    }
+
+    function getCategories() {
+        const cats = new Set(builds.map(b => b.category));
+        return ['all', ...Array.from(cats).sort()];
+    }
+
+    function renderFilters() {
+        const container = document.getElementById('filters');
+        const cats = getCategories();
+        container.innerHTML = cats.map(c =>
+            `<button class="filter-btn ${c === activeFilter ? 'active' : ''}"
+                     data-cat="${c}">[${c.toUpperCase()}]</button>`
+        ).join(' ');
+
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeFilter = btn.dataset.cat;
+                renderFilters();
+                renderBuilds();
+                updateStatus();
+            });
+        });
+    }
+
+    function renderBuilds() {
+        const container = document.getElementById('build-list');
+        const filtered = activeFilter === 'all'
+            ? builds
+            : builds.filter(b => b.category === activeFilter);
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-msg">No files found in this area.</div>';
+            return;
+        }
+
+        container.innerHTML = filtered.map((b, i) => {
+            const links = [];
+            if (b.url) links.push(`<a href="${b.url}" target="_blank">[VIEW]</a>`);
+            if (b.source) links.push(`<a href="${b.source}" target="_blank">[SOURCE]</a>`);
+
+            return `
+            <div class="file-entry" data-category="${b.category}">
+                <div class="file-row">
+                    <span class="fe-date">${b.date}</span>
+                    <span class="fe-name">${b.name}</span>
+                    <span class="fe-cat">${b.category}</span>
+                </div>
+                <div class="fe-desc">${b.description}</div>
+                ${links.length ? '<div class="fe-links">' + links.join(' ') + '</div>' : ''}
+            </div>`;
+        }).join('');
+    }
+
+    function updateStatus() {
+        const filtered = activeFilter === 'all'
+            ? builds
+            : builds.filter(b => b.category === activeFilter);
+        document.getElementById('status-line').innerHTML =
+            `C:\\BUILDS> ${filtered.length} file(s) listed <span class="cursor">█</span>`;
+    }
+
+    init();
+})();
+</script>
+
+</body>
+</html>
