@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Build Log</title>
+    <style>
+        @font-face {
+            font-family: 'Topaz New';
+            src: url('../fonts/topaz_new/Topaznew.ttf') format('truetype');
+        }
+
+        body, h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+            font-family: 'Topaz New', 'Courier New', monospace;
+            cursor: url('../icons/cursor.png'), auto;
+        }
+
+        body {
+            background-color: #00519E;
+            color: #f0f0f0;
+            font-size: 16px;
+            font-weight: normal;
+            padding: 20px;
+        }
+
+        a {
+            color: rgb(255, 136, 0);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Page header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .page-header h1 {
+            font-size: 24px;
+            color: #f0f0f0;
+            margin-bottom: 4px;
+        }
+        .page-header p {
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+        .page-header .back-link {
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        /* Filters */
+        .filters {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            font-family: 'Topaz New', 'Courier New', monospace;
+            font-size: 14px;
+            padding: 4px 12px;
+            border: 2px outset #d0d0c0;
+            background-color: #808080;
+            color: #f0f0f0;
+            cursor: pointer;
+        }
+        .filter-btn:hover {
+            background-color: #909090;
+        }
+        .filter-btn.active {
+            background-color: rgb(255, 136, 0);
+            color: #fff;
+            border-style: inset;
+        }
+
+        /* Build list */
+        .build-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .build-entry {
+            background-color: #0050A0;
+            border: 3px solid #f9f9f9;
+            margin-bottom: 16px;
+            box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
+        }
+
+        .entry-bar {
+            background-image: url('../icons/titlebar_background.png');
+            background-repeat: repeat;
+            display: flex;
+            align-items: center;
+            padding: 2px 8px;
+        }
+
+        .entry-title {
+            background-color: #f9f9f9;
+            color: #000099;
+            padding: 0 6px;
+            font-size: 16px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .entry-date {
+            margin-left: auto;
+            background-color: #f9f9f9;
+            color: #000099;
+            padding: 0 6px;
+            font-size: 13px;
+        }
+
+        .entry-body {
+            padding: 10px 12px;
+        }
+
+        .entry-desc {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .entry-links {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .entry-tags {
+            margin-top: 8px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 1px 8px;
+            border: 1px solid #f9f9f9;
+            color: #f9f9f9;
+            opacity: 0.7;
+        }
+
+        .empty-msg {
+            text-align: center;
+            padding: 40px;
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 32px;
+            padding: 10px;
+            border-top: 3px solid #505050;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <a href="../index.html" class="back-link">← Back to Playground</a>
+    <h1>Build Log</h1>
+    <p>Things I've built, am building, or broke trying.</p>
+</div>
+
+<div class="filters" id="filters"></div>
+
+<div class="build-list" id="build-list"></div>
+
+<footer>
+    <a href="../index.html">← Bob's Amiga Playground</a>
+</footer>
+
+<script>
+(function() {
+    let builds = [];
+    let activeFilter = 'all';
+
+    async function init() {
+        try {
+            const resp = await fetch('builds.json');
+            builds = await resp.json();
+            builds.sort((a, b) => b.date.localeCompare(a.date));
+            renderFilters();
+            renderBuilds();
+        } catch(e) {
+            document.getElementById('build-list').innerHTML =
+                '<div class="empty-msg">Error loading builds: ' + e.message + '</div>';
+        }
+    }
+
+    function getCategories() {
+        const cats = new Set(builds.map(b => b.category));
+        return ['all', ...Array.from(cats).sort()];
+    }
+
+    function renderFilters() {
+        const container = document.getElementById('filters');
+        const cats = getCategories();
+        container.innerHTML = cats.map(c =>
+            `<button class="filter-btn ${c === activeFilter ? 'active' : ''}"
+                     data-cat="${c}">${c}</button>`
+        ).join('');
+
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeFilter = btn.dataset.cat;
+                renderFilters();
+                renderBuilds();
+            });
+        });
+    }
+
+    function renderBuilds() {
+        const container = document.getElementById('build-list');
+        const filtered = activeFilter === 'all'
+            ? builds
+            : builds.filter(b => b.category === activeFilter);
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-msg">No builds found.</div>';
+            return;
+        }
+
+        container.innerHTML = filtered.map(b => {
+            const links = [];
+            if (b.url) links.push(`<a href="${b.url}" target="_blank">View →</a>`);
+            if (b.source) links.push(`<a href="${b.source}" target="_blank">Source →</a>`);
+
+            return `
+            <div class="build-entry" data-category="${b.category}">
+                <div class="entry-bar">
+                    <span class="entry-title">${b.name}</span>
+                    <span class="entry-date">${b.date}</span>
+                </div>
+                <div class="entry-body">
+                    <div class="entry-desc">${b.description}</div>
+                    <div class="entry-links">${links.join(' ')}</div>
+                    <div class="entry-tags">
+                        <span class="tag">${b.category}</span>
+                        <span class="tag">${b.type}</span>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    init();
+})();
+</script>
+
+</body>
+</html>
