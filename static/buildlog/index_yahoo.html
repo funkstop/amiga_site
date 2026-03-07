@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Builds! Directory</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #fff;
+            color: #000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        a { color: #0000cc; }
+        a:visited { color: #551a8b; }
+        a:hover { color: #cc0000; }
+
+        /* Top nav */
+        .topnav {
+            background: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            padding: 3px 12px;
+            font-size: 11px;
+            text-align: right;
+        }
+        .topnav a { color: #0000cc; font-size: 11px; margin-left: 8px; }
+
+        /* Logo */
+        .logo-area {
+            text-align: center;
+            padding: 16px 0 10px;
+        }
+        .logo {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 42px;
+            font-weight: bold;
+            color: #d40000;
+            letter-spacing: -1px;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: #888;
+        }
+
+        /* Search */
+        .search-area {
+            text-align: center;
+            padding: 6px 0 12px;
+        }
+        .search-area input[type="text"] {
+            font-size: 13px;
+            padding: 2px 4px;
+            border: 1px solid #888;
+            width: 280px;
+        }
+        .search-area button {
+            font-size: 12px;
+            padding: 2px 10px;
+            border: 1px outset #ccc;
+            background: #ddd;
+            cursor: pointer;
+        }
+
+        .hr-thick {
+            border: none;
+            border-top: 2px solid #000;
+            margin: 0;
+        }
+        .hr-thin {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 8px 0;
+        }
+
+        .content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 12px 16px;
+        }
+
+        /* Directory grid */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 40px;
+            margin: 12px 0 20px;
+        }
+
+        .dir-category {
+            margin-bottom: 12px;
+        }
+        .dir-category .cat-head {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .dir-category .cat-head a {
+            text-decoration: none;
+        }
+        .dir-category .cat-head a:hover {
+            text-decoration: underline;
+        }
+        .cat-count {
+            font-weight: normal;
+            color: #666;
+            font-size: 11px;
+        }
+        .cat-subs {
+            font-size: 12px;
+            color: #333;
+            margin-top: 1px;
+        }
+        .cat-subs a {
+            font-size: 12px;
+        }
+        .new-badge {
+            color: #cc0000;
+            font-size: 10px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        /* Expanded listing under category */
+        .cat-section {
+            margin-bottom: 20px;
+        }
+        .cat-section-title {
+            font-size: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 2px;
+            margin-bottom: 6px;
+        }
+        .site-item {
+            padding: 3px 0 3px 16px;
+        }
+        .site-item a {
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .site-item .site-desc {
+            font-size: 12px;
+            color: #333;
+        }
+        .site-item .site-date {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .footer {
+            border-top: 2px solid #000;
+            margin-top: 20px;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+        }
+        .footer a { color: #0000cc; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+<div style="text-align:center;padding:4px 12px;font-family:Arial,sans-serif;font-size:11px;background:#e8e8e8;border-bottom:1px solid #ccc">
+    <a href="index_bbs.html" style="color:#0000cc;margin:0 6px">BBS</a>
+    <a href="index_teletext.html" style="color:#0000cc;margin:0 6px">Teletext</a>
+    <a href="index_gopher.html" style="color:#0000cc;margin:0 6px">Gopher</a>
+    <span style="color:#000;font-weight:bold;margin:0 6px">Yahoo</span>
+</div>
+
+
+<div class="topnav">
+    <a href="../index.html">Playground</a>
+    <a href="#">Blog</a>
+    <a href="#">GitHub</a>
+</div>
+
+<div class="logo-area">
+    <div class="logo">Bob's Builds!</div>
+    <div class="logo-sub">[<a href="../index.html">Playground</a> | <a href="#">Blog</a> | <a href="#">Substack</a> | <a href="#">GitHub</a>]</div>
+</div>
+
+<div class="search-area">
+    <form onsubmit="doSearch(); return false;">
+        <input type="text" id="search-input" placeholder="">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<hr class="hr-thick">
+
+<div class="content">
+    <div class="directory-grid" id="directory-grid"></div>
+
+    <hr class="hr-thin">
+
+    <div id="build-list"></div>
+</div>
+
+<div class="footer">
+    <a href="../index.html">Back to Playground</a><br><br>
+    Copyright © 2026 Bob's Builds!<br>
+    <span style="font-size:9px; color:#ccc">Best viewed with Netscape Navigator 3.0 at 800×600</span>
+</div>
+
+<script>
+(function() {
+    let builds = [];
+    let activeFilter = null;
+
+    async function init() {
+        try {
+            const resp = await fetch('builds.json');
+            builds = await resp.json();
+            builds.sort((a, b) => b.date.localeCompare(a.date));
+            renderDirectory();
+            renderAllSections();
+        } catch(e) {
+            document.getElementById('build-list').innerHTML =
+                '<p style="color:red">Error: ' + e.message + '</p>';
+        }
+    }
+
+    function getGrouped() {
+        const groups = {};
+        builds.forEach(b => {
+            if (!groups[b.category]) groups[b.category] = [];
+            groups[b.category].push(b);
+        });
+        return groups;
+    }
+
+    function isRecent(dateStr) {
+        const d = new Date(dateStr);
+        const now = new Date();
+        return (now - d) / (1000*60*60*24) < 90;
+    }
+
+    function renderDirectory() {
+        const grid = document.getElementById('directory-grid');
+        const groups = getGrouped();
+        const cats = Object.keys(groups).sort();
+
+        grid.innerHTML = cats.map(cat => {
+            const items = groups[cat];
+            const subs = items.slice(0, 3).map(b => {
+                const badge = isRecent(b.date) ? ' <span class="new-badge">NEW!</span>' : '';
+                return `<a href="#cat-${cat}">${b.name}</a>${badge}`;
+            }).join(', ');
+            const more = items.length > 3 ? ', ...' : '';
+
+            return `
+            <div class="dir-category">
+                <div class="cat-head">
+                    <a href="#cat-${cat}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</a>
+                    <span class="cat-count">(${items.length})</span>
+                </div>
+                <div class="cat-subs">${subs}${more}</div>
+            </div>`;
+        }).join('');
+    }
+
+    function renderAllSections() {
+        const container = document.getElementById('build-list');
+        const groups = getGrouped();
+        const cats = Object.keys(groups).sort();
+
+        container.innerHTML = cats.map(cat => {
+            const items = groups[cat];
+            const entries = items.map(b => {
+                const mainUrl = b.url || b.source || '#';
+                const links = [];
+                if (b.url) links.push(`<a href="${b.url}" target="_blank">${b.name}</a>`);
+                else if (b.source) links.push(`<a href="${b.source}" target="_blank">${b.name}</a>`);
+                else links.push(b.name);
+                if (b.source && b.url) links.push(` — <a href="${b.source}" target="_blank" style="font-weight:normal;font-size:11px">source</a>`);
+                const badge = isRecent(b.date) ? ' <span class="new-badge">NEW!</span>' : '';
+
+                return `
+                <div class="site-item">
+                    ${links.join('')}${badge}<br>
+                    <span class="site-desc">${b.description}</span>
+                    <span class="site-date"> — ${b.date}</span>
+                </div>`;
+            }).join('');
+
+            return `
+            <div class="cat-section" id="cat-${cat}">
+                <div class="cat-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    <span class="cat-count">(${items.length})</span>
+                </div>
+                ${entries}
+            </div>`;
+        }).join('');
+    }
+
+    window.doSearch = function() {
+        const term = document.getElementById('search-input').value.toLowerCase().trim();
+        if (!term) { renderAllSections(); return; }
+        const container = document.getElementById('build-list');
+        const filtered = builds.filter(b =>
+            b.name.toLowerCase().includes(term) ||
+            b.description.toLowerCase().includes(term) ||
+            b.category.toLowerCase().includes(term)
+        );
+        if (filtered.length === 0) {
+            container.innerHTML = '<p style="color:#888;text-align:center;padding:20px">No builds matched your search.</p>';
+            return;
+        }
+        container.innerHTML = filtered.map(b => {
+            const mainUrl = b.url || b.source || '#';
+            return `
+            <div class="site-item">
+                <a href="${mainUrl}" target="_blank">${b.name}</a><br>
+                <span class="site-desc">${b.description}</span>
+                <span class="site-date"> — ${b.date} · ${b.category}</span>
+            </div>`;
+        }).join('');
+    };
+
+    init();
+})();
+</script>
+
+</body>
+</html>
