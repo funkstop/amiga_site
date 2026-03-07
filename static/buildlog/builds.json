@@ -9,6 +9,15 @@
     "source": "https://github.com/funkstop/amiga_site"
   },
   {
+    "date": "2026-02-26",
+    "name": "jyphoto_transfer",
+    "description": "transfer directly from google photos to Dropbox. ",
+    "category": "python library",
+    "type": "public",
+    "url": "https://pypi.org/project/jyphoto-transfer/",
+    "source": "https://github.com/funkstop/jyphoto_transfer"
+  },
+  {
     "date": "2023-09-30",
     "name": "Maker Faire 2023",
     "description": "Lose Yourself Exhibit",
