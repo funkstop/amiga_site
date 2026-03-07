@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Build Log - Gopher</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #e8e0d4;
+            color: #222;
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            font-size: 15px;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Browser chrome */
+        .browser-chrome {
+            background: #c0c0c0;
+            border-bottom: 2px solid #808080;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        .chrome-label {
+            color: #444;
+            font-weight: bold;
+        }
+        .chrome-url {
+            flex: 1;
+            background: #fff;
+            border: 1px inset #aaa;
+            padding: 2px 8px;
+            color: #222;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+        }
+
+        .content {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* Header info block */
+        .gopher-info {
+            color: #555;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+        .gopher-info .title {
+            color: #222;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* Filters */
+        .filters {
+            margin-bottom: 16px;
+            color: #555;
+        }
+        .filter-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 15px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+        }
+        .filter-btn:hover { color: #0000ee; }
+        .filter-btn.active { color: #222; font-weight: bold; text-decoration: none; }
+
+        .separator {
+            color: #aaa;
+            margin: 12px 0;
+            white-space: pre;
+        }
+
+        /* Gopher menu items */
+        .gopher-item {
+            padding: 4px 0;
+            display: flex;
+            align-items: baseline;
+        }
+        .g-type {
+            width: 24px;
+            flex-shrink: 0;
+            color: #888;
+            font-size: 14px;
+        }
+        .g-body { flex: 1; }
+        .g-link {
+            color: #0000ee;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .g-link:hover { color: #cc0000; }
+        .g-desc {
+            color: #666;
+            font-size: 14px;
+            margin-left: 24px;
+            margin-bottom: 4px;
+        }
+        .g-meta {
+            color: #999;
+            font-size: 13px;
+            margin-left: 24px;
+        }
+        .g-meta a {
+            color: #0000ee;
+            text-decoration: underline;
+        }
+        .g-meta a:hover { color: #cc0000; }
+
+        .g-info {
+            color: #555;
+            margin-left: 24px;
+        }
+
+        .empty-msg {
+            color: #888;
+            padding: 20px 24px;
+        }
+
+        .footer {
+            margin-top: 24px;
+            padding-top: 8px;
+            border-top: 1px solid #bbb;
+            color: #999;
+            font-size: 13px;
+        }
+        .footer a { color: #0000ee; }
+    </style>
+</head>
+<body>
+
+<div style="text-align:center;padding:6px 12px;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#d8d0c4;border-bottom:1px solid #bbb">
+    <a href="index_bbs.html" style="color:#0000ee;margin:0 8px">BBS</a>
+    <a href="index_teletext.html" style="color:#0000ee;margin:0 8px">Teletext</a>
+    <span style="color:#222;font-weight:bold;margin:0 8px;text-decoration:none">Gopher</span>
+    <a href="index_yahoo.html" style="color:#0000ee;margin:0 8px">Yahoo</a>
+</div>
+
+
+<div class="browser-chrome">
+    <span class="chrome-label">Gopher:</span>
+    <span class="chrome-url">gopher://bob.builds/1/log</span>
+</div>
+
+<div class="content">
+    <div class="gopher-info"><span class="title">Bob's Build Log</span>
+Things built, building, or broke trying.
+──────────────────────────────────────</div>
+
+    <div class="filters">
+        [filter] <span id="filters"></span>
+    </div>
+
+    <div class="separator">──────────────────────────────────────</div>
+
+    <div id="build-list"></div>
+
+    <div class="separator">──────────────────────────────────────</div>
+
+    <div class="footer">
+        <div class="gopher-item">
+            <span class="g-type">1</span>
+            <span class="g-body"><a href="../index.html" class="g-link">Back to Playground</a></span>
+        </div>
+        <br>
+        Served by GopherBob/0.1 &nbsp;|&nbsp; Port 70
+    </div>
+</div>
+
+<script>
+(function() {
+    let builds = [];
+    let activeFilter = 'all';
+
+    const TYPE_MAP = {
+        'code': '1',
+        'art': 'I',
+        'writing': '0',
+        'ai': '1',
+        'default': '9'
+    };
+
+    async function init() {
+        try {
+            const resp = await fetch('builds.json');
+            builds = await resp.json();
+            builds.sort((a, b) => b.date.localeCompare(a.date));
+            renderFilters();
+            renderBuilds();
+        } catch(e) {
+            document.getElementById('build-list').innerHTML =
+                '<div class="empty-msg">3 Error: ' + e.message + '</div>';
+        }
+    }
+
+    function getCategories() {
+        const cats = new Set(builds.map(b => b.category));
+        return ['all', ...Array.from(cats).sort()];
+    }
+
+    function renderFilters() {
+        const container = document.getElementById('filters');
+        const cats = getCategories();
+        container.innerHTML = cats.map(c =>
+            `<button class="filter-btn ${c === activeFilter ? 'active' : ''}"
+                     data-cat="${c}">${c}</button>`
+        ).join(' / ');
+
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeFilter = btn.dataset.cat;
+                renderFilters();
+                renderBuilds();
+            });
+        });
+    }
+
+    function renderBuilds() {
+        const container = document.getElementById('build-list');
+        const filtered = activeFilter === 'all'
+            ? builds
+            : builds.filter(b => b.category === activeFilter);
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-msg">i  (empty directory)</div>';
+            return;
+        }
+
+        container.innerHTML = filtered.map(b => {
+            const gtype = TYPE_MAP[b.category] || TYPE_MAP['default'];
+            const mainLink = b.url || b.source || '#';
+            const links = [];
+            if (b.url) links.push(`<a href="${b.url}" target="_blank">view</a>`);
+            if (b.source) links.push(`<a href="${b.source}" target="_blank">source</a>`);
+
+            return `
+            <div class="gopher-item">
+                <span class="g-type">${gtype}</span>
+                <span class="g-body"><a href="${mainLink}" target="_blank" class="g-link">${b.name}</a></span>
+            </div>
+            <div class="g-desc">${b.description}</div>
+            <div class="g-meta">${b.date} · ${b.category}${links.length ? ' · ' + links.join(' · ') : ''}</div>`;
+        }).join('\n');
+    }
+
+    init();
+})();
+</script>
+
+</body>
+</html>
