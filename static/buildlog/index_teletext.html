@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Build Log - Teletext</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 20px;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .screen {
+            width: 100%;
+            max-width: 820px;
+            background: #000;
+            padding: 16px 24px;
+            border: 8px solid #222;
+            border-radius: 20px;
+            margin: 16px;
+            box-shadow: 0 0 40px rgba(50,50,50,0.4);
+        }
+
+        /* Teletext header bar */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000;
+            padding: 4px 0;
+            margin-bottom: 4px;
+        }
+        .header-bar .service {
+            color: #fff;
+            background-color: #ff0000;
+            padding: 0 8px;
+            font-weight: bold;
+        }
+        .header-bar .date {
+            color: #0ff;
+        }
+        .header-bar .page-num {
+            color: #ff0;
+            font-weight: bold;
+        }
+
+        /* Main title block */
+        .title-block {
+            background-color: #00f;
+            text-align: center;
+            padding: 8px 0;
+            margin-bottom: 8px;
+        }
+        .title-block h1 {
+            color: #ff0;
+            font-size: 28px;
+            letter-spacing: 6px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .title-block .subtitle {
+            color: #0ff;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .divider {
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg, #f00, #f00 12.5%, #ff0 12.5%, #ff0 25%,
+                #0f0 25%, #0f0 37.5%, #0ff 37.5%, #0ff 50%,
+                #00f 50%, #00f 62.5%, #f0f 62.5%, #f0f 75%,
+                #fff 75%, #fff 87.5%, #f00 87.5%, #f00 100%
+            );
+            margin: 8px 0;
+        }
+
+        /* Filters */
+        .filters { margin-bottom: 8px; }
+        .filters .label { color: #0f0; }
+        .filter-btn {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 0;
+        }
+        .filter-btn:hover { color: #ff0; }
+        .filter-btn.active { color: #ff0; background-color: #00f; padding: 0 4px; }
+
+        /* Entries */
+        .entry {
+            padding: 6px 0;
+            border-bottom: 1px solid #333;
+        }
+        .entry-row {
+            display: flex;
+        }
+        .entry-num {
+            color: #ff0;
+            width: 40px;
+            flex-shrink: 0;
+        }
+        .entry-name {
+            color: #fff;
+            flex: 1;
+        }
+        .entry-cat {
+            color: #0f0;
+            width: 70px;
+            text-align: right;
+        }
+        .entry-desc {
+            color: #0ff;
+            font-size: 17px;
+            margin-left: 40px;
+        }
+        .entry-links {
+            margin-left: 40px;
+            margin-top: 2px;
+            font-size: 16px;
+        }
+        .entry-links a {
+            color: #f0f;
+            text-decoration: none;
+            margin-right: 16px;
+        }
+        .entry-links a:hover { color: #ff0; }
+
+        .empty-msg {
+            color: #f00;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Footer with colour nav blocks */
+        .footer {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .colour-btns {
+            display: flex;
+            gap: 4px;
+        }
+        .colour-btn {
+            width: 60px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .cb-red { background: #f00; }
+        .cb-green { background: #0a0; }
+        .cb-yellow { background: #cc0; color: #000; }
+        .cb-blue { background: #00f; }
+        .footer .page-ref { color: #ff0; }
+
+        .status {
+            color: #0f0;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div style="text-align:center;padding:8px 12px;font-family:'Share Tech Mono',monospace;font-size:16px;background:#111">
+    <a href="index_bbs.html" style="color:#888;text-decoration:none;padding:2px 8px">BBS</a>
+    <span style="color:#ff0;background:#00f;padding:2px 8px">Teletext</span>
+    <a href="index_gopher.html" style="color:#888;text-decoration:none;padding:2px 8px">Gopher</a>
+    <a href="index_yahoo.html" style="color:#888;text-decoration:none;padding:2px 8px">Yahoo</a>
+</div>
+
+
+<div class="screen">
+    <div class="header-bar">
+        <span class="service">BOBTEXT</span>
+        <span class="date" id="clock"></span>
+        <span class="page-num">P100</span>
+    </div>
+
+    <div class="title-block">
+        <h1>BUILD LOG</h1>
+        <div class="subtitle">Things built, building, or broke trying</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="filters">
+        <span class="label">AREA: </span>
+        <span id="filters"></span>
+    </div>
+
+    <div id="build-list"></div>
+
+    <div class="divider"></div>
+
+    <div class="footer">
+        <div class="colour-btns">
+            <div class="colour-btn cb-red">Index</div>
+            <div class="colour-btn cb-green">Next</div>
+            <div class="colour-btn cb-yellow">Blog</div>
+            <div class="colour-btn cb-blue">Home</div>
+        </div>
+        <span class="page-ref">▶ <a href="../index.html" style="color:#ff0;text-decoration:none;">Playground</a></span>
+    </div>
+
+    <div class="status" id="status"></div>
+</div>
+
+<script>
+(function() {
+    let builds = [];
+    let activeFilter = 'all';
+
+    // Clock
+    function updateClock() {
+        const now = new Date();
+        const d = now.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+        const t = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+        document.getElementById('clock').textContent = d + ' ' + t;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    async function init() {
+        try {
+            const resp = await fetch('builds.json');
+            builds = await resp.json();
+            builds.sort((a, b) => b.date.localeCompare(a.date));
+            renderFilters();
+            renderBuilds();
+        } catch(e) {
+            document.getElementById('build-list').innerHTML =
+                '<div class="empty-msg">SIGNAL LOST: ' + e.message + '</div>';
+        }
+    }
+
+    function getCategories() {
+        const cats = new Set(builds.map(b => b.category));
+        return ['all', ...Array.from(cats).sort()];
+    }
+
+    function renderFilters() {
+        const container = document.getElementById('filters');
+        const cats = getCategories();
+        container.innerHTML = cats.map(c =>
+            `<button class="filter-btn ${c === activeFilter ? 'active' : ''}"
+                     data-cat="${c}">${c.toUpperCase()}</button>`
+        ).join(' ');
+
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeFilter = btn.dataset.cat;
+                renderFilters();
+                renderBuilds();
+            });
+        });
+    }
+
+    function renderBuilds() {
+        const container = document.getElementById('build-list');
+        const filtered = activeFilter === 'all'
+            ? builds
+            : builds.filter(b => b.category === activeFilter);
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-msg">NO DATA ON THIS PAGE</div>';
+            return;
+        }
+
+        container.innerHTML = filtered.map((b, i) => {
+            const links = [];
+            if (b.url) links.push(`<a href="${b.url}" target="_blank">► View</a>`);
+            if (b.source) links.push(`<a href="${b.source}" target="_blank">► Source</a>`);
+
+            return `
+            <div class="entry" data-category="${b.category}">
+                <div class="entry-row">
+                    <span class="entry-num">${(i+1).toString().padStart(2,'0')}</span>
+                    <span class="entry-name">${b.name}</span>
+                    <span class="entry-cat">${b.category}</span>
+                </div>
+                <div class="entry-desc">${b.description}</div>
+                ${links.length ? '<div class="entry-links">' + links.join(' ') + '</div>' : ''}
+            </div>`;
+        }).join('');
+
+        document.getElementById('status').textContent =
+            filtered.length + ' item(s) ■ Page 100/' + (100 + filtered.length);
+    }
+
+    init();
+})();
+</script>
+
+</body>
+</html>
