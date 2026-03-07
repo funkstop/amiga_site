@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2024-12-01",
+    "name": "Amiga Playground Site",
+    "description": "Retro Amiga-themed personal site with draggable windows",
+    "category": "code",
+    "type": "public",
+    "url": "https://rahimadatia.com",
+    "source": "https://github.com/funkstop/amiga_site"
+  },
+  {
+    "date": "2023-09-30",
+    "name": "Maker Faire 2023",
+    "description": "Lose Yourself Exhibit",
+    "category": "art",
+    "type": "public",
+    "url": "https://www.instagram.com/stories/highlights/17939760198038928/",
+    "source": "https://www.instagram.com/stories/highlights/17939760198038928/"
+  }
+]
