@@ -323,7 +323,7 @@
 
 <!-- BuildLog Modal -->
 <div id="buildlog-modal"
-     role="dialog" aria-modal="true" aria-labelledby="mf-title"
+     role="dialog" aria-modal="true" aria-labelledby="bl-title"
      style="position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:9999;">
   <div id="buildlog-window"
        style="display:block; position:relative; left:auto; top:auto; width:min(92vw, 620px); max-height:84vh; overflow:auto; background-color:#0050A0; border:5px solid #f9f9f9; box-shadow:5px 5px 5px rgba(0,0,0,0.3);">
@@ -341,15 +341,12 @@
       </div>
     </div>
     <div class="window-content">
-      <h3 id="bl-title" style="margin-top:0;">See my piece at Maker Faire!</h3>
-      <p><strong>New:</strong> Check my new Build Log</p>
+      <h3 id="bl-title" style="margin-top:0;">Check out my new Build Log!</h3>
+      <p><strong>New:</strong> Click the top to see different themes</p>
 
       <!-- Inline story/highlight player (local files) -->
-        <div id="mf-ig-player" style="margin:10px 0;">
-            <video id="mf-ig-video" playsinline controls preload="metadata"
-                poster="cover.png"
-                style="width:100%; height:auto; max-height:70vh; background:#000;"
-                src="media/makerfaire/highlight1.mp4"></video>
+        <div id="bl-screenshot" style="margin:10px 0;">
+            <img src="bl-screenshot.jpg"
           <!--  <div style="display:flex; gap:8px; margin-top:8px;">
             <button type="button" id="mf-ig-prev" style="padding:6px 10px; border:1px solid #333; background:#e0e0e0; cursor:pointer;">◀ Prev</button>
             <button type="button" id="mf-ig-next" style="padding:6px 10px; border:1px solid #333; background:#e0e0e0; cursor:pointer;">Next ▶</button>
