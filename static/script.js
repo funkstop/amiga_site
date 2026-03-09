@@ -340,37 +340,142 @@ document.querySelectorAll('.window').forEach((windowElement) => {
     makeDraggable(windowElement);
 });
 
+/* ========================= BuildLog Modal + Inline Player ========================= */
+// -- Show/hide --
+(function () {
+    function $id(id) { return document.getElementById(id); }
+    function showBL() {
+        const m = $id('bl-modal');
+        if (m) {
+            m.style.display = 'flex';
+            // tell the player to (re)load if needed
+            document.dispatchEvent(new CustomEvent('bl-reopen'));
+        }
+    }
+    
+    function hideBL() {
+        const m = $id('bl-modal');
+        if (m) {
+            // stop all media inside the modal
+            m.querySelectorAll('video, audio').forEach(el => {
+                try {
+                    el.pause();
+                    el.currentTime = 0;
+                    // fully unload to stop audio/network
+                    el.removeAttribute('src');
+                    el.load();
+                } catch {}
+            });
+            m.style.display = 'none';
+        }
+    }
+    
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = $id('bl-modal');
+    if (!modal) return;
+
+    // Always show on page load
+    showBL();
+
+    // Close only via explicit actions
+    const x = $id('bl-close-icon');
+    if (x) x.addEventListener('click', () => { window._blExplicitClose = true; hideBL(); });
+
+    const ok = $id('bl-close-btn');
+    if (ok) ok.addEventListener('click', () => { window._blExplicitClose = true; hideBL(); });
+
+    // Intentionally NOT closing on backdrop click
+  });
+
+  // -- Lock in place: block site-wide drags and style mutations that move/hide it --
+  (function lockModal() {
+    const MODAL_SEL = '#bl-modal';
+    const WIN_SEL   = '#bl-window';
+
+    function withinModal(target) {
+      return target && target.closest && target.closest(MODAL_SEL);
+    }
+
+    // Block drag starters inside modal (capture phase beats global handlers)
+    ['pointerdown','mousedown','touchstart'].forEach(evt => {
+      document.addEventListener(evt, (e) => {
+        if (withinModal(e.target)) {
+          e.stopImmediatePropagation();
+          const isControl = e.target.closest('#bl-close-btn, #bl-close-icon, a, button, video, input, select, textarea');
+          if (!isControl) e.preventDefault();
+        }
+      }, true);
+    });
+
+    // Revert any style changes trying to reposition/hide the inner window
+    document.addEventListener('DOMContentLoaded', () => {
+      const mw = document.querySelector(WIN_SEL);
+      if (mw) {
+        const enforce = () => {
+          mw.style.position = 'relative';
+          mw.style.left = 'auto';
+          mw.style.top  = 'auto';
+          const modal = document.querySelector(MODAL_SEL);
+          if (modal && getComputedStyle(modal).display !== 'none') {
+            mw.style.display = 'block';
+          }
+        };
+        enforce();
+        new MutationObserver(enforce).observe(mw, { attributes: true, attributeFilter: ['style', 'class'] });
+      }
+
+      // If something hides the modal programmatically, reopen unless user explicitly closed
+      const modal = document.querySelector(MODAL_SEL);
+      if (modal) {
+        new MutationObserver(() => {
+          const hidden = getComputedStyle(modal).display === 'none';
+          if (hidden && !window._blExplicitClose) modal.style.display = 'flex';
+        }).observe(modal, { attributes: true, attributeFilter: ['style', 'class'] });
+      }
+    });
+
+    // Reload first story if modal is reopened and video has no src
+    document.addEventListener('bl-reopen', () => {
+        if (video && !video.src) load(0);
+        });
+
+  })();
+
+  // Expose for console testing if you like
+  window._blShow = showBL;
+  window._blHide = hideBL;
+})();
+
 /* ========================= Maker Faire Modal + Inline Player ========================= */
 // -- Show/hide --
 (function () {
-  function $id(id) { return document.getElementById(id); }
-  function showMF() {
-    const m = $id('mf-modal');
-    if (m) {
-        m.style.display = 'flex';
-        // tell the player to (re)load if needed
-        document.dispatchEvent(new CustomEvent('mf-reopen'));
+    function $id(id) { return document.getElementById(id); }
+    function showMF() {
+        const m = $id('mf-modal');
+        if (m) {
+            m.style.display = 'flex';
+            // tell the player to (re)load if needed
+            document.dispatchEvent(new CustomEvent('mf-reopen'));
+        }
     }
-    }
-
+    
     function hideMF() {
-    const m = $id('mf-modal');
-    if (m) {
-        // stop all media inside the modal
-        m.querySelectorAll('video, audio').forEach(el => {
-        try {
-            el.pause();
-            el.currentTime = 0;
-            // fully unload to stop audio/network
-            el.removeAttribute('src');
-            el.load();
-        } catch {}
-        });
-        m.style.display = 'none';
+        const m = $id('mf-modal');
+        if (m) {
+            // stop all media inside the modal
+            m.querySelectorAll('video, audio').forEach(el => {
+                try {
+                    el.pause();
+                    el.currentTime = 0;
+                    // fully unload to stop audio/network
+                    el.removeAttribute('src');
+                    el.load();
+                } catch {}
+            });
+            m.style.display = 'none';
+        }
     }
-    }
-
-
+    
   document.addEventListener('DOMContentLoaded', () => {
     const modal = $id('mf-modal');
     if (!modal) return;
