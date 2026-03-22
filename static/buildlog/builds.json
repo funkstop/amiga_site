@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-03-22",
+    "name": "Jugya.com",
+    "description": "Productivity Tools Powered by AI",
+    "category": "productivity",
+    "type": "public",
+    "url": "https://jugya.com",
+    "source": "https://github.com/funkstop/Jugya"
+  },
+  {
     "date": "2024-12-01",
     "name": "Amiga Playground Site",
     "description": "Retro Amiga-themed personal site with draggable windows",
