@@ -1,12 +1,21 @@
 [
   {
-    "date": "2026-03-22",
+    "date": "2026-03-23",
     "name": "Jugya.com",
     "description": "Productivity Tools Powered by AI",
     "category": "productivity",
     "type": "public",
     "url": "https://jugya.com",
     "source": "https://github.com/funkstop/Jugya"
+  },
+  {
+    "date": "2026-03-22",
+    "name": "Workspace Manager",
+    "description": "Chrome Tab Manager",
+    "category": "productivity",
+    "type": "public",
+    "url": "https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?hl=en-US",
+    "source": "https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?hl=en-US"
   },
   {
     "date": "2024-12-01",
