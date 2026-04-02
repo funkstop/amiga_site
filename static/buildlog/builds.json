@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-04-01",
+    "name": "Exquisite Corpse",
+    "description": "Interactive game to collaborate images. Based on Surrealists work",
+    "category": "art",
+    "type": "public",
+    "url": "https://exquisitecorpse-q9ff.onrender.com/",
+    "source": "https://github.com/funkstop/exquisitecorpse"
+  },
+  {
     "date": "2026-03-23",
     "name": "Jugya.com",
     "description": "Productivity Tools Powered by AI",
