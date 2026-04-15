@@ -1,6 +1,6 @@
 [  
   {
-    "date": "2026-04-02",
+    "date": "2026-04-14",
     "name": "beatscore",
     "description": "Interactive game to collaborate images. Based on Surrealists work",
     "category": "art",
@@ -9,9 +9,9 @@
     "source": "https://github.com/funkstop/beatscore"
   },
   {
-    "date": "2026-04-02",
+    "date": "2026-04-08",
     "name": "What AI treats as Default",
-    "description": "Interactive game to collaborate images. Based on Surrealists work",
+    "description": "A blog discussion about bias within LLMs",
     "category": "art",
     "type": "public",
     "url": "https://thefunkstop.com/what-ai-treats-as-default",
