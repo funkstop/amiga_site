@@ -9,10 +9,19 @@
     "source": "https://github.com/funkstop/beatscore"
   },
   {
+    "date": "2026-04-09",
+    "name": "Flowers",
+    "description": "Experiments with p5js",
+    "category": "art",
+    "type": "public",
+    "url": "https://www.instagram.com/reels/DW510EukQFY/",
+    "source": "https://github.com/funkstop/p5jsFlowers"
+  },
+  {
     "date": "2026-04-08",
     "name": "What AI treats as Default",
     "description": "A blog discussion about bias within LLMs",
-    "category": "art",
+    "category": "writing",
     "type": "public",
     "url": "https://thefunkstop.com/what-ai-treats-as-default",
     "source": "https://thefunkstop.com/what-ai-treats-as-default"
@@ -66,7 +75,7 @@
     "date": "2025-02-06",
     "name": "on Transitions",
     "description": "February 4th, 2025. The date The Aga Khan IV passed away.",
-    "category": "Writing",
+    "category": "writing",
     "type": "public",
     "url": "https://thefunkstop.substack.com/p/on-transitions",
     "source": "https://thefunkstop.substack.com/p/on-transitions"
@@ -75,7 +84,7 @@
     "date": "2024-03-11",
     "name": "on Ramadan",
     "description": "and why I refuse to fast",
-    "category": "Writing",
+    "category": "writing",
     "type": "public",
     "url": "https://thefunkstop.substack.com/p/on-ramadan-and-why-i-refuse-to-fast",
     "source": "https://thefunkstop.substack.com/p/on-ramadan-and-why-i-refuse-to-fast"
@@ -84,7 +93,7 @@
     "date": "2021-12-29",
     "name": "on The Cusp",
     "description": "bring on 2020 too",
-    "category": "Writing",
+    "category": "writing",
     "type": "public",
     "url": "https://thefunkstop.substack.com/p/on-the-cusp",
     "source": "https://thefunkstop.substack.com/p/on-the-cusp"
