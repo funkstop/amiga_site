@@ -5,7 +5,7 @@
     "description": "A small libary that translates structured text into music clips by mapping properties of the input (intensity, repetition, pace, tone, coherence) into prompts into the ElevenLabs Music API.",
     "category": "python library",
     "type": "public",
-    "url": "funkstop.github.io/beatscore",
+    "url": "http://funkstop.github.io/beatscore",
     "source": "https://github.com/funkstop/beatscore"
   },
   {
