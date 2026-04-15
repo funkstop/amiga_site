@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-04-14",
+    "name": "What AI treats as Default",
+    "description": "A blog discussion about bias within LLMs",
+    "type": "public",
+    "url": "https://thefunkstop.com/what-ai-treats-as-default",
+    "source": "https://thefunkstop.com/what-ai-treats-as-default"
+  },
+  {
     "date": "2026-04-01",
     "name": "Exquisite Corpse",
     "description": "Interactive game to collaborate images. Based on Surrealists work",
