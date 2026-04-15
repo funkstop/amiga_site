@@ -3,7 +3,7 @@
     "date": "2026-04-14",
     "name": "beatscore",
     "description": "A small libary that translates structured text into music clips by mapping properties of the input (intensity, repetition, pace, tone, coherence) into prompts into the ElevenLabs Music API.",
-    "category": "art", "python library"
+    "category": {"art", "python library"}
     "type": "public",
     "url": "funkstop.github.io/beatscore",
     "source": "https://github.com/funkstop/beatscore"
