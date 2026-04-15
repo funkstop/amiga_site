@@ -54,6 +54,15 @@
     "source": "https://chromewebstore.google.com/detail/workspace-manager/cpfchfkodgnkhfmndmmkecbihmdahpia?hl=en-US"
   },
   {
+    "date": "2026-01-14",
+    "name": "2026 Predictions by Theme",
+    "description": "Analyzed and grouped 2026 Predictions from 100 lists",
+    "category": "productivity",
+    "type": "public",
+    "url": "  https://funkstop.github.io/amiga_site/static/predictions_grouped_fast.html",
+    "source": "https://github.com/funkstop/amiga_site/blob/master/static/predictions_grouped_fast.html"
+  },
+  {
     "date": "2024-12-01",
     "name": "Amiga Playground Site",
     "description": "Retro Amiga-themed personal site with draggable windows",
