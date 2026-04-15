@@ -1,12 +1,12 @@
 [
   {
-    "date": "2026-04-14",
-    "name": "beatscore",
-    "description": "A small libary that translates structured text into music clips by mapping properties of the input (intensity, repetition, pace, tone, coherence) into prompts into the ElevenLabs Music API.",
+    "date": "2026-04-02",
+    "name": "Exquisite Corpse",
+    "description": "Interactive game to collaborate images. Based on Surrealists work",
     "category": "art",
     "type": "public",
-    "url": "funkstop.github.io/beatscore",
-    "source": "https://github.com/funkstop/beatscore"
+    "url": "https://exquisitecorpse-q9ff.onrender.com/",
+    "source": "https://github.com/funkstop/exquisitecorpse"
   },
   {
     "date": "2026-04-01",
