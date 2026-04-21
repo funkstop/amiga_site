@@ -1,5 +1,14 @@
 [  
   {
+    "date": "2026-04-21",
+    "name": "AI Tool Explorer",
+    "description": "A simple Explorer to learn about different AI tools and how they differ",
+    "category": "productivity",
+    "type": "public",
+    "url": "http://ai.rahimadatia.com",
+    "source": "https://github.com/funkstop/ai-tool-explorer"
+  },
+  {
     "date": "2026-04-14",
     "name": "beatscore",
     "description": "A small libary that translates structured text into music clips by mapping properties of the input (intensity, repetition, pace, tone, coherence) into prompts into the ElevenLabs Music API.",
